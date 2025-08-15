@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Autono — Policy-guarded payments for AI agents</title>
+  <meta name="description" content="Give your agents budgets, allow-lists, per-call caps, and receipts—across x402, L402, and smart wallets." />
+  <style>
+    :root { --bg: #0a0a0a; --fg: #e5e5e5; --muted:#9ca3af; --card:#111; --border:#1f2937; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial; background: var(--bg); color: var(--fg); }
+    a { color: inherit; text-decoration: none; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .nav { position: sticky; top:0; backdrop-filter: blur(8px); background: rgba(10,10,10,0.6); border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .nav-inner { display:flex; align-items:center; justify-content:space-between; padding: 16px 0; }
+    .logo { display:flex; align-items:center; gap:10px; font-weight:600; }
+    .dot { width:32px; height:32px; border-radius:12px; background: linear-gradient(135deg, #6366f1, #22d3ee); display:inline-block; }
+    .links { display:none; gap:24px; color:#cbd5e1; font-size:14px; }
+    @media (min-width: 768px){ .links{ display:flex; } }
+    .btn { display:inline-block; background:#fff; color:#111; padding:10px 16px; border-radius:12px; font-weight:600; font-size:14px; }
+    .btn.outline { background: transparent; color:#fff; border:1px solid rgba(255,255,255,0.15); }
+    .hero { position:relative; overflow:hidden; text-align:center; padding: 96px 0 64px; }
+    .blob { position:absolute; inset:0; background: radial-gradient(60% 60% at 50% 0%, rgba(99,102,241,0.25), transparent); pointer-events:none; }
+    .badge { display:inline-flex; gap:8px; align-items:center; border:1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.06); padding:6px 10px; border-radius:999px; color:#cbd5e1; font-size:12px; }
+    .badge .green { width:8px; height:8px; background:#34d399; border-radius:999px; }
+    h1 { font-size: clamp(36px, 6vw, 64px); line-height:1.1; letter-spacing:-0.02em; margin: 16px 0; }
+    .muted { color: var(--muted); }
+    .chipgrid { display:grid; grid-template-columns: repeat(2,1fr); gap:12px; margin-top: 32px; }
+    @media (min-width: 768px){ .chipgrid{ grid-template-columns: repeat(4,1fr);} }
+    .chip { border:1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.06); border-radius:12px; padding:10px; font-size:12px; color:#cbd5e1; }
+    .section { padding: 72px 0; }
+    .cards { display:grid; gap:18px; }
+    @media (min-width:768px){ .cards{ grid-template-columns: repeat(3,1fr);} }
+    .card { border:1px solid var(--border); background: linear-gradient(to bottom, rgba(255,255,255,0.06), transparent); border-radius:16px; padding:24px; }
+    .card h3 { margin:0 0 8px; font-size:18px; }
+    .steps { display:grid; gap:14px; }
+    @media (min-width:768px){ .steps{ grid-template-columns: repeat(3,1fr);} }
+    .step { border:1px solid var(--border); border-radius:16px; padding:20px; }
+    .pricing { display:grid; gap:18px; }
+    @media (min-width:768px){ .pricing{ grid-template-columns: repeat(3,1fr);} }
+    .price { border:1px solid var(--border); background: rgba(255,255,255,0.06); border-radius:16px; padding:24px; }
+    .price .title{ font-weight:600; }
+    .price .value{ font-size:28px; font-weight:800; margin-top:6px; }
+    .list { list-style:none; padding:0; margin:12px 0 0; color:#cbd5e1; font-size:14px; }
+    .list li { display:flex; gap:8px; align-items:flex-start; margin:6px 0; }
+    .pill { width:6px; height:6px; background:#22d3ee; border-radius:999px; margin-top:7px; }
+    .form { border:1px solid var(--border); background: rgba(255,255,255,0.06); border-radius:16px; padding:24px; }
+    input[type="email"]{ width:100%; padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,0.12); background:#0b0b0b; color:#fff; font-size:14px; outline:none; }
+    .row { display:flex; gap:10px; margin-top:12px; flex-direction:column; }
+    @media (min-width:640px){ .row{ flex-direction:row; } }
+    footer { border-top:1px solid var(--border); padding: 32px 0; color:#94a3b8; font-size:14px; }
+    .footer-inner { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+    .link { color:#fff; text-decoration:none; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="container nav-inner">
+      <div class="logo"><span class="dot"></span><span>Autono</span></div>
+      <div class="links">
+        <a href="#features">Features</a>
+        <a href="#how">How it works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <a class="btn" href="#waitlist">Get early access</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="blob"></div>
+    <div class="container" style="position:relative;">
+      <div class="badge"><span class="green"></span> Now inviting design partners</div>
+      <h1>Policy-guarded payments for <span style="background:linear-gradient(90deg,#818cf8,#67e8f9); -webkit-background-clip:text; background-clip:text; color:transparent;">AI agents</span></h1>
+      <p class="muted" style="font-size:18px; max-width:800px; margin: 12px auto 0;">
+        Give your agents budgets, vendor allow-lists, per-call caps, and receipts—across x402, L402, and smart wallets.
+      </p>
+      <div style="margin-top:24px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+        <a class="btn" href="#waitlist">Join the waitlist</a>
+        <a class="btn outline" href="https://loom.com" target="_blank" rel="noreferrer">Watch 90-sec demo</a>
+      </div>
+
+      <div class="chipgrid">
+        <div class="chip">x402 (USDC over HTTP)</div>
+        <div class="chip">L402 / LSAT (Lightning)</div>
+        <div class="chip">ERC-4337 smart accounts</div>
+        <div class="chip">Receipts & reconciliation</div>
+      </div>
+    </div>
+  </header>
+
+  <section id="features" class="section">
+    <div class="container">
+      <div class="cards">
+        <div class="card">
+          <h3>Budgets & policies</h3>
+          <p class="muted">Allow-lists, per-call caps, velocity limits, and time-boxed session keys.</p>
+        </div>
+        <div class="card">
+          <h3>Multi-rail by default</h3>
+          <p class="muted">Use USDC x402 for API vendors, L402 for micropayments, and EVM smart-account spend.</p>
+        </div>
+        <div class="card">
+          <h3>Audit-ready receipts</h3>
+          <p class="muted">Every decision is explainable and exportable for finance and compliance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how" class="section">
+    <div class="container">
+      <h2>How it works</h2>
+      <div class="steps" style="margin-top:16px;">
+        <div class="step"><div class="muted">Step 1</div><div style="font-weight:600;">Connect</div><p class="muted">Create agent wallets and link your vendors/APIs.</p></div>
+        <div class="step"><div class="muted">Step 2</div><div style="font-weight:600;">Set policies</div><p class="muted">Budgets, allow-lists, per-call caps, and approvals.</p></div>
+        <div class="step"><div class="muted">Step 3</div><div style="font-weight:600;">Go live</div><p class="muted">Our gateway enforces policies and returns verifiable receipts.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" class="section">
+    <div class="container">
+      <h2>Early access pricing</h2>
+      <div class="pricing" style="margin-top:16px;">
+        <div class="price">
+          <div class="title">Builder</div>
+          <div class="value">Free</div>
+          <ul class="list">
+            <li><span class="pill"></span>Sandbox</li>
+            <li><span class="pill"></span>Up to 3 agents</li>
+            <li><span class="pill"></span>Email support</li>
+          </ul>
+          <div style="margin-top:16px;"><a class="btn" href="#waitlist">Join waitlist</a></div>
+        </div>
+        <div class="price">
+          <div class="title">Pilot</div>
+          <div class="value">£499/mo</div>
+          <ul class="list">
+            <li><span class="pill"></span>10 agents</li>
+            <li><span class="pill"></span>Policy engine</li>
+            <li><span class="pill"></span>SLA support</li>
+          </ul>
+          <div style="margin-top:16px;"><a class="btn" href="#waitlist">Join waitlist</a></div>
+        </div>
+        <div class="price">
+          <div class="title">Enterprise</div>
+          <div class="value">Talk to us</div>
+          <ul class="list">
+            <li><span class="pill"></span>Custom seats</li>
+            <li><span class="pill"></span>SSO/SIEM</li>
+            <li><span class="pill"></span>On-prem options</li>
+          </ul>
+          <div style="margin-top:16px;"><a class="btn" href="#waitlist">Join waitlist</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="waitlist" class="section">
+    <div class="container">
+      <div class="form">
+        <h2>Get early access</h2>
+        <p class="muted">Tell us where to send the invite. We’ll prioritise teams spending on APIs/compute.</p>
+        <form id="wl">
+          <div class="row">
+            <input id="email" type="email" placeholder="you@company.com" required />
+            <button class="btn" type="submit">Join</button>
+          </div>
+          <p class="muted" style="font-size:12px; margin-top:8px;">By joining, you agree to our <a class="link" href="#">Privacy Policy</a>.</p>
+        </form>
+        <div id="thanks" style="display:none; margin-top:12px; border:1px solid #065f46; background:#064e3b; color:#d1fae5; padding:10px; border-radius:10px; font-size:14px;">Thanks! You’re on the list — we’ll be in touch.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="section">
+    <div class="container">
+      <h2>FAQ</h2>
+      <details style="margin-top:12px; border:1px solid var(--border); border-radius:16px; padding:16px;">
+        <summary class="link" style="font-weight:600;">Is this custodial?</summary>
+        <p class="muted">We start as a tech-only policy layer integrating registered custodians and payment providers. No client funds custody at launch.</p>
+      </details>
+      <details style="margin-top:12px; border:1px solid var(--border); border-radius:16px; padding:16px;">
+        <summary class="link" style="font-weight:600;">Which rails do you support?</summary>
+        <p class="muted">USDC x402, Lightning L402, and ERC-4337 smart-account spend (Base/EVM).</p>
+      </details>
+      <details style="margin-top:12px; border:1px solid var(--border); border-radius:16px; padding:16px;">
+        <summary class="link" style="font-weight:600;">Who is it for?</summary>
+        <p class="muted">AI infra, API/data vendors, and teams deploying autonomous agents with measurable spend.</p>
+      </details>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-inner">
+      <p>© <span id="y"></span> Autono. All rights reserved.</p>
+      <div style="display:flex; gap:14px;">
+        <a class="link" href="#">Terms</a>
+        <a class="link" href="#">Privacy</a>
+        <a class="link" href="#">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // year
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // waitlist form — replace with Formspree if you like
+    const form = document.getElementById('wl');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = (document.getElementById('email')).value;
+      // Simple fake submit (shows thanks)
+      // To use Formspree, replace the fetch with:
+      // await fetch("YOUR_FORMSPREE_ENDPOINT", { method:"POST", headers:{ "Content-Type":"application/json" }, body: JSON.stringify({ email }) });
+      document.getElementById('thanks').style.display = 'block';
+      form.reset();
+    });
+  </script>
+</body>
+</html>
