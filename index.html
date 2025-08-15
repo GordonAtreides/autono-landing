@@ -6,151 +6,66 @@
   <title>Autono — Policy-guarded payments for AI agents</title>
   <meta name="description" content="Give your agents budgets, allow-lists, per-call caps, and receipts—across x402, L402, and smart wallets." />
   <style>
-    :root { --bg: #0a0a0a; --fg: #e5e5e5; --muted:#9ca3af; --card:#111; --border:#1f2937; }
-    * { box-sizing: border-box; }
-    body { margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial; background: var(--bg); color: var(--fg); }
-    a { color: inherit; text-decoration: none; }
-    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-    .nav { position: sticky; top:0; backdrop-filter: blur(8px); background: rgba(10,10,10,0.6); border-bottom: 1px solid rgba(255,255,255,0.06); }
-    .nav-inner { display:flex; align-items:center; justify-content:space-between; padding: 16px 0; }
-    .logo { display:flex; align-items:center; gap:10px; font-weight:600; }
-    .dot { width:32px; height:32px; border-radius:12px; background: linear-gradient(135deg, #6366f1, #22d3ee); display:inline-block; }
-    .links { display:none; gap:24px; color:#cbd5e1; font-size:14px; }
-    @media (min-width: 768px){ .links{ display:flex; } }
-    .btn { display:inline-block; background:#fff; color:#111; padding:10px 16px; border-radius:12px; font-weight:600; font-size:14px; }
-    .btn.outline { background: transparent; color:#fff; border:1px solid rgba(255,255,255,0.15); }
-    .hero { position:relative; overflow:hidden; text-align:center; padding: 96px 0 64px; }
-    .blob { position:absolute; inset:0; background: radial-gradient(60% 60% at 50% 0%, rgba(99,102,241,0.25), transparent); pointer-events:none; }
-    .badge { display:inline-flex; gap:8px; align-items:center; border:1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.06); padding:6px 10px; border-radius:999px; color:#cbd5e1; font-size:12px; }
-    .badge .green { width:8px; height:8px; background:#34d399; border-radius:999px; }
-    h1 { font-size: clamp(36px, 6vw, 64px); line-height:1.1; letter-spacing:-0.02em; margin: 16px 0; }
-    .muted { color: var(--muted); }
-    .chipgrid { display:grid; grid-template-columns: repeat(2,1fr); gap:12px; margin-top: 32px; }
-    @media (min-width: 768px){ .chipgrid{ grid-template-columns: repeat(4,1fr);} }
-    .chip { border:1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.06); border-radius:12px; padding:10px; font-size:12px; color:#cbd5e1; }
-    .section { padding: 72px 0; }
-    .cards { display:grid; gap:18px; }
-    @media (min-width:768px){ .cards{ grid-template-columns: repeat(3,1fr);} }
-    .card { border:1px solid var(--border); background: linear-gradient(to bottom, rgba(255,255,255,0.06), transparent); border-radius:16px; padding:24px; }
-    .card h3 { margin:0 0 8px; font-size:18px; }
-    .steps { display:grid; gap:14px; }
-    @media (min-width:768px){ .steps{ grid-template-columns: repeat(3,1fr);} }
-    .step { border:1px solid var(--border); border-radius:16px; padding:20px; }
-    .pricing { display:grid; gap:18px; }
-    @media (min-width:768px){ .pricing{ grid-template-columns: repeat(3,1fr);} }
-    .price { border:1px solid var(--border); background: rgba(255,255,255,0.06); border-radius:16px; padding:24px; }
-    .price .title{ font-weight:600; }
-    .price .value{ font-size:28px; font-weight:800; margin-top:6px; }
-    .list { list-style:none; padding:0; margin:12px 0 0; color:#cbd5e1; font-size:14px; }
-    .list li { display:flex; gap:8px; align-items:flex-start; margin:6px 0; }
-    .pill { width:6px; height:6px; background:#22d3ee; border-radius:999px; margin-top:7px; }
-    .form { border:1px solid var(--border); background: rgba(255,255,255,0.06); border-radius:16px; padding:24px; }
-    input[type="email"]{ width:100%; padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,0.12); background:#0b0b0b; color:#fff; font-size:14px; outline:none; }
-    .row { display:flex; gap:10px; margin-top:12px; flex-direction:column; }
-    @media (min-width:640px){ .row{ flex-direction:row; } }
-    footer { border-top:1px solid var(--border); padding: 32px 0; color:#94a3b8; font-size:14px; }
-    .footer-inner { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
-    .link { color:#fff; text-decoration:none; }
-    /* --- Demo animation styles --- */
-.demo {
-  position: relative;
-  width: min(720px, 92%);
-  margin: 40px auto 0;
-  height: 280px;
-  perspective: 1200px;
-  isolation: isolate;
+    /* === Approve vs Decline demo (unique) === */
+.demo2 {
+  position: relative; width: min(760px, 92%); margin: 40px auto 0;
+  height: 300px; perspective: 1200px; isolation: isolate;
 }
-
-/* dotted background */
-.demo::before {
-  content: "";
-  position: absolute; inset: -20px;
+.demo2::before {
+  content:""; position:absolute; inset:-20px;
   background:
-    radial-gradient(currentColor 0.8px, transparent 0.8px) 0 0/10px 10px,
-    linear-gradient(180deg, rgba(255,255,255,0.08), transparent 40%);
-  color: rgba(255,255,255,0.22);
-  border-radius: 16px;
-  filter: contrast(120%) opacity(0.7);
-  z-index: -1;
+    radial-gradient(currentColor .8px, transparent .8px) 0 0/10px 10px,
+    linear-gradient(180deg, rgba(255,255,255,.08), transparent 40%);
+  color: rgba(255,255,255,.18); border-radius:16px; filter: contrast(120%);
+  z-index:-1;
 }
+.panel {
+  position:absolute; border-radius:14px; box-shadow:0 20px 50px rgba(0,0,0,.35);
+  transform: rotate(-.4deg); transform-style:preserve-3d;
+}
+.panel-top {
+  background:#111827; color:#e5f2f2; left: 10%; right: 10%; top: 18px; min-height: 140px;
+  border:1px solid rgba(255,255,255,.08);
+  padding: 18px 20px; display:flex; flex-direction:column; gap:12px;
+  animation: pEnter .7s ease-out forwards, float 7s ease-in-out infinite 1.2s;
+}
+.panel-title { font-weight:700; letter-spacing:.2px; }
+.log { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Courier New", monospace; font-size:14px; }
+.log .row { opacity:.85; }
+.faint { opacity:.7; }
 
-/* base card look */
-.card {
-  position: absolute;
-  border-radius: 14px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.35);
-  transform: translateY(16px) rotate(-0.4deg);
-  transform-style: preserve-3d;
+/* request slips */
+.req {
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Courier New", monospace;
+  font-size:14px; padding:12px 16px; height:56px; border-radius:14px; border:1px solid rgba(0,0,0,.06);
+  background:#fff; color:#0b1f22; width: 58%;
 }
+.reqA { position:absolute; left: 20%; bottom: 18px; transform: translateY(24px) rotate(-.6deg); opacity:0; }
+.reqB { position:absolute; right: 20%; bottom: 18px; transform: translateY(24px) rotate(.6deg); opacity:0; }
 
-/* yellow bank card */
-.card-yellow {
-  background: #f5f249;
-  color: #111;
-  left: 5%;
-  top: 20px;
-  width: 72%;
-  height: 70px;
-  padding: 16px 20px;
-  font-weight: 700;
-  letter-spacing: .2px;
-  animation: enterYellow .8s ease-out forwards, float 6s ease-in-out infinite 1s;
+/* decision badges */
+.badge {
+  padding:4px 10px; border-radius:999px; font-weight:700; font-size:12px; letter-spacing:.2px;
+  display:inline-flex; align-items:center; gap:8px; white-space:nowrap;
 }
+.ok { background:#ecfdf5; color:#065f46; border:1px solid #10b98133; }
+.no { background:#fef2f2; color:#7f1d1d; border:1px solid #ef444433; }
+.dot { width:8px; height:8px; border-radius:999px; }
+.dot.ok { background:#10b981; } .dot.no { background:#ef4444; }
 
-/* dark wallet card */
-.card-dark {
-  background: #0f2f31;
-  color: #e7f2f2;
-  left: 18%;
-  top: 78px;
-  width: 68%;
-  height: 150px;
-  padding: 18px 22px;
-  display: flex; flex-direction: column; gap: 12px;
-  animation: enterDark .9s ease-out .1s forwards, float 7s ease-in-out infinite 1.2s;
-}
+/* animations */
+@keyframes pEnter { from {opacity:0; transform: translateY(24px) scale(.98) rotate(-3deg);} to {opacity:1; transform: translateY(0) scale(1) rotate(-.4deg);} }
+@keyframes float  { 0%,100% { transform: translateY(0) rotate(-.4deg);} 50% { transform: translateY(-6px) rotate(-.2deg);} }
+@keyframes slideUp { from { opacity:0; transform: translateY(24px) rotate(var(--rot,0deg)); }
+                     to   { opacity:1; transform: translateY(0) rotate(var(--rot,0deg)); } }
 
-/* white request bar */
-.card-slip {
-  background: #fff;
-  color: #0d1b1e;
-  left: 28%;
-  bottom: 8px;
-  width: 58%;
-  height: 54px;
-  padding: 14px 18px;
-  display: flex; align-items: center; justify-content: space-between;
-  border: 1px solid rgba(0,0,0,0.06);
-  animation: enterSlip .9s ease-out .2s forwards, float 8s ease-in-out infinite 1.4s;
-}
-
-.mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Courier New", monospace; }
-.small { font-size: 14px; opacity: .9; }
-.faint { opacity: .8; }
-
-@keyframes enterYellow {
-  from { opacity: 0; transform: translateY(24px) scale(.98) rotate(-2deg); }
-  to   { opacity: 1; transform: translateY(0) scale(1) rotate(-0.4deg); }
-}
-@keyframes enterDark {
-  from { opacity: 0; transform: translateY(40px) scale(.96) rotate(1.2deg); }
-  to   { opacity: 1; transform: translateY(0) scale(1) rotate(-0.4deg); }
-}
-@keyframes enterSlip {
-  from { opacity: 0; transform: translateY(24px) scale(.98) rotate(-1.5deg); }
-  to   { opacity: 1; transform: translateY(0) scale(1) rotate(-0.4deg); }
-}
-@keyframes float {
-  0%,100% { transform: translateY(0) rotate(-0.4deg); }
-  50%     { transform: translateY(-6px) rotate(-0.2deg); }
-}
-
-/* responsive tweaks */
+/* responsive */
 @media (max-width: 540px){
-  .card-yellow { width: 92%; left: 4%; }
-  .card-dark   { width: 88%; left: 6%; }
-  .card-slip   { width: 80%; left: 10%; }
-  .small { font-size: 13px; }
+  .panel-top { left:4%; right:4%; }
+  .req { width: 86%; }
+  .reqA { left: 7%; } .reqB { right: 7%; }
+  .log { font-size:13px; }
 }
   </style>
 </head>
@@ -189,20 +104,23 @@
         <div class="chip">Receipts & reconciliation</div>
       </div>
     </div>
-    <!-- Animated demo -->
-<div class="demo" aria-hidden="true">
-  <div class="card card-yellow">US Bank Account</div>
-
-  <div class="card card-dark">
-    <div style="font-weight:700">Autono Wallet</div>
-    <div id="log" class="mono small">
-      <div class="faint">› Initialising…</div>
+    <!-- Unique Approve vs Decline animation -->
+<div class="demo2" aria-hidden="true">
+  <div class="panel panel-top">
+    <div class="panel-title">Autono Gateway — Policy Check</div>
+    <div id="log2" class="log">
+      <div class="row faint">› Initialising…</div>
     </div>
   </div>
 
-  <div class="card card-slip mono small">
-    <span>Requesting $ <span id="amt">30.00</span></span>
-    <span class="faint">AI Agent</span>
+  <div id="reqA" class="req reqA" style="--rot:-.6deg">
+    <span><strong>Req #A</strong> • $<span id="amtA">0.09</span></span>
+    <span class="badge ok"><span class="dot ok"></span>Approved</span>
+  </div>
+
+  <div id="reqB" class="req reqB" style="--rot:.6deg">
+    <span><strong>Req #B</strong> • $<span id="amtB">0.25</span></span>
+    <span class="badge no"><span class="dot no"></span>Declined</span>
   </div>
 </div>
   </header>
@@ -373,6 +291,90 @@
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     document.querySelectorAll(".card").forEach(c => c.style.animation = "none");
     clearInterval(logTimer);
+  }
+</script>
+  <script>
+  // ----- Approve vs Decline animation logic -----
+  const lines = [
+    "Analyzing payment request…",
+    "Checking API…",
+    "Checking limits…",
+    "Policy check: evaluating…",
+  ];
+
+  const reasons = {
+    approved: "Policy check: PASS",
+    declined: "Policy check: FAIL (per-call cap exceeded)"
+  };
+
+  const log = document.getElementById("log2");
+  const reqA = document.getElementById("reqA");
+  const reqB = document.getElementById("reqB");
+  const amtA = document.getElementById("amtA");
+  const amtB = document.getElementById("amtB");
+
+  // gentle pulsing amounts
+  let a = 0.09, b = 0.25, dirA = 1, dirB = -1;
+  setInterval(() => {
+    a += 0.001 * dirA; if (a > 0.11 || a < 0.07) dirA *= -1;
+    b += 0.002 * dirB; if (b > 0.28 || b < 0.22) dirB *= -1;
+    amtA.textContent = a.toFixed(2);
+    amtB.textContent = b.toFixed(2);
+  }, 120);
+
+  function clearLog() {
+    while (log.children.length) log.removeChild(log.firstElementChild);
+  }
+  function addRow(txt, faint=false) {
+    const d = document.createElement("div");
+    d.className = "row" + (faint ? " faint" : "");
+    d.textContent = "› " + txt;
+    log.appendChild(d);
+  }
+  function slideIn(el, delayMs=0) {
+    el.style.animation = "none"; // reset
+    el.offsetHeight; // reflow
+    setTimeout(() => {
+      el.style.animation = `slideUp .6s ease-out forwards, float 8s ease-in-out infinite 1.4s`;
+    }, delayMs);
+  }
+
+  function cycle() {
+    clearLog();
+    addRow("Initialising…", true);
+
+    // type the checks
+    let i = 0;
+    const t = setInterval(() => {
+      addRow(lines[i]);
+      i++;
+      if (i >= lines.length) {
+        clearInterval(t);
+
+        // show decisions
+        addRow(reasons.approved);
+        slideIn(reqA, 150);
+
+        setTimeout(() => {
+          addRow(reasons.declined);
+          slideIn(reqB, 150);
+        }, 900);
+
+        // reset for next cycle
+        setTimeout(() => {
+          // hide slips for next run
+          reqA.style.animation = "none"; reqA.style.opacity = 0; reqA.style.transform = "translateY(24px) rotate(-.6deg)";
+          reqB.style.animation = "none"; reqB.style.opacity = 0; reqB.style.transform = "translateY(24px) rotate(.6deg)";
+          cycle();
+        }, 4200);
+      }
+    }, 800);
+  }
+  cycle();
+
+  // accessibility: respect reduced motion
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    [reqA, reqB].forEach(el => el.style.animation = "none");
   }
 </script>
 </body>
