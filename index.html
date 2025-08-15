@@ -51,6 +51,107 @@
     footer { border-top:1px solid var(--border); padding: 32px 0; color:#94a3b8; font-size:14px; }
     .footer-inner { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
     .link { color:#fff; text-decoration:none; }
+    /* --- Demo animation styles --- */
+.demo {
+  position: relative;
+  width: min(720px, 92%);
+  margin: 40px auto 0;
+  height: 280px;
+  perspective: 1200px;
+  isolation: isolate;
+}
+
+/* dotted background */
+.demo::before {
+  content: "";
+  position: absolute; inset: -20px;
+  background:
+    radial-gradient(currentColor 0.8px, transparent 0.8px) 0 0/10px 10px,
+    linear-gradient(180deg, rgba(255,255,255,0.08), transparent 40%);
+  color: rgba(255,255,255,0.22);
+  border-radius: 16px;
+  filter: contrast(120%) opacity(0.7);
+  z-index: -1;
+}
+
+/* base card look */
+.card {
+  position: absolute;
+  border-radius: 14px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+  transform: translateY(16px) rotate(-0.4deg);
+  transform-style: preserve-3d;
+}
+
+/* yellow bank card */
+.card-yellow {
+  background: #f5f249;
+  color: #111;
+  left: 5%;
+  top: 20px;
+  width: 72%;
+  height: 70px;
+  padding: 16px 20px;
+  font-weight: 700;
+  letter-spacing: .2px;
+  animation: enterYellow .8s ease-out forwards, float 6s ease-in-out infinite 1s;
+}
+
+/* dark wallet card */
+.card-dark {
+  background: #0f2f31;
+  color: #e7f2f2;
+  left: 18%;
+  top: 78px;
+  width: 68%;
+  height: 150px;
+  padding: 18px 22px;
+  display: flex; flex-direction: column; gap: 12px;
+  animation: enterDark .9s ease-out .1s forwards, float 7s ease-in-out infinite 1.2s;
+}
+
+/* white request bar */
+.card-slip {
+  background: #fff;
+  color: #0d1b1e;
+  left: 28%;
+  bottom: 8px;
+  width: 58%;
+  height: 54px;
+  padding: 14px 18px;
+  display: flex; align-items: center; justify-content: space-between;
+  border: 1px solid rgba(0,0,0,0.06);
+  animation: enterSlip .9s ease-out .2s forwards, float 8s ease-in-out infinite 1.4s;
+}
+
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Courier New", monospace; }
+.small { font-size: 14px; opacity: .9; }
+.faint { opacity: .8; }
+
+@keyframes enterYellow {
+  from { opacity: 0; transform: translateY(24px) scale(.98) rotate(-2deg); }
+  to   { opacity: 1; transform: translateY(0) scale(1) rotate(-0.4deg); }
+}
+@keyframes enterDark {
+  from { opacity: 0; transform: translateY(40px) scale(.96) rotate(1.2deg); }
+  to   { opacity: 1; transform: translateY(0) scale(1) rotate(-0.4deg); }
+}
+@keyframes enterSlip {
+  from { opacity: 0; transform: translateY(24px) scale(.98) rotate(-1.5deg); }
+  to   { opacity: 1; transform: translateY(0) scale(1) rotate(-0.4deg); }
+}
+@keyframes float {
+  0%,100% { transform: translateY(0) rotate(-0.4deg); }
+  50%     { transform: translateY(-6px) rotate(-0.2deg); }
+}
+
+/* responsive tweaks */
+@media (max-width: 540px){
+  .card-yellow { width: 92%; left: 4%; }
+  .card-dark   { width: 88%; left: 6%; }
+  .card-slip   { width: 80%; left: 10%; }
+  .small { font-size: 13px; }
+}
   </style>
 </head>
 <body>
@@ -88,6 +189,22 @@
         <div class="chip">Receipts & reconciliation</div>
       </div>
     </div>
+    <!-- Animated demo -->
+<div class="demo" aria-hidden="true">
+  <div class="card card-yellow">US Bank Account</div>
+
+  <div class="card card-dark">
+    <div style="font-weight:700">Autono Wallet</div>
+    <div id="log" class="mono small">
+      <div class="faint">› Initialising…</div>
+    </div>
+  </div>
+
+  <div class="card card-slip mono small">
+    <span>Requesting $ <span id="amt">30.00</span></span>
+    <span class="faint">AI Agent</span>
+  </div>
+</div>
   </header>
 
   <section id="features" class="section">
@@ -220,5 +337,43 @@
       form.reset();
     });
   </script>
+  <script>
+  // simple typewriter for the dark card log
+  const lines = [
+    "Analyzing payment request…",
+    "Checking API…",
+    "Checking limits…",
+    "Policy check: PASS",
+    "Preparing receipt…"
+  ];
+  const logEl = document.getElementById("log");
+  let i = 0;
+
+  function addLine() {
+    const d = document.createElement("div");
+    d.textContent = "› " + lines[i];
+    d.className = "mono small";
+    logEl.appendChild(d);
+    i = (i + 1) % lines.length;
+    if (logEl.children.length > 6) logEl.removeChild(logEl.firstElementChild);
+  }
+  addLine();
+  const logTimer = setInterval(addLine, 1200);
+
+  // gentle amount pulse
+  const amt = document.getElementById("amt");
+  let v = 30.00, dir = 1;
+  setInterval(() => {
+    v += 0.02 * dir;
+    if (v > 30.24 || v < 29.76) dir *= -1;
+    amt.textContent = v.toFixed(2);
+  }, 120);
+
+  // reduce motion for users who prefer it
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    document.querySelectorAll(".card").forEach(c => c.style.animation = "none");
+    clearInterval(logTimer);
+  }
+</script>
 </body>
 </html>
