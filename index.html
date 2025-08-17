@@ -72,7 +72,7 @@ h1{font-size:clamp(36px,6vw,64px);line-height:1.1;margin:16px 0}
 .status.ok{background:#065f46;color:#d1fae5}
 .status.stop{background:#7f1d1d;color:#fee2e2}
 
-/* ===== Logos Marquee (refined) ===== */
+/* ===== Logos Marquee (full-bleed, continuous) ===== */
 .marquee{
   position:relative;
   padding:18px 0;
@@ -80,6 +80,69 @@ h1{font-size:clamp(36px,6vw,64px);line-height:1.1;margin:16px 0}
   border-top:1px solid rgba(255,255,255,.08);
   border-bottom:1px solid rgba(255,255,255,.08);
   overflow:hidden;
+}
+
+/* make inner container full-bleed for this section only */
+.marquee .container{max-width:none; padding:0}
+
+/* soft edge fades */
+.marquee::before,
+.marquee::after{
+  content:"";
+  position:absolute; top:0; bottom:0; width:12vw; z-index:2; pointer-events:none;
+}
+.marquee::before{
+  left:0;
+  background:linear-gradient(90deg, rgba(10,10,10,1), rgba(10,10,10,0));
+}
+.marquee::after{
+  right:0;
+  background:linear-gradient(270deg, rgba(10,10,10,1), rgba(10,10,10,0));
+}
+
+/* track is wider than viewport and scrolls left forever */
+.marquee .track{
+  display:inline-flex; gap:18px; align-items:center;
+  white-space:nowrap;
+  will-change:transform;
+  min-width:max-content;  /* allow natural width */
+  animation:marquee-scroll 35s linear infinite;
+}
+.marquee .track:hover{ animation-play-state:paused; }
+
+@keyframes marquee-scroll{
+  from { transform: translateX(0) }
+  to   { transform: translateX(-50%) } /* because we duplicate content once */
+}
+
+/* colorful pills */
+.pill{
+  --bg1: rgba(255,255,255,.06);
+  --bd:  rgba(255,255,255,.16);
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:13px; color:#e5e7eb;
+  padding:10px 14px; border-radius:999px;
+  border:1px solid var(--bd); background:var(--bg1);
+  box-shadow:0 0 0 1px rgba(255,255,255,.03), 0 12px 24px -10px rgba(0,0,0,.45);
+  transition:transform .18s ease, background .18s ease, border-color .18s ease;
+}
+.pill:hover{ transform:translateY(-2px); background:rgba(255,255,255,.08); }
+
+/* themed accents */
+.pill.cyan   { --bg1: linear-gradient(180deg, rgba(103,232,249,.10), rgba(255,255,255,.04)); --bd: rgba(103,232,249,.35); }
+.pill.violet { --bg1: linear-gradient(180deg, rgba(129,140,248,.12), rgba(255,255,255,.04)); --bd: rgba(129,140,248,.35); }
+.pill.blue   { --bg1: linear-gradient(180deg, rgba(59,130,246,.12),  rgba(255,255,255,.04)); --bd: rgba(59,130,246,.35); }
+.pill.amber  { --bg1: linear-gradient(180deg, rgba(245,158,11,.12),  rgba(255,255,255,.04)); --bd: rgba(245,158,11,.35); }
+.pill.green  { --bg1: linear-gradient(180deg, rgba(16,185,129,.12),  rgba(255,255,255,.04)); --bd: rgba(16,185,129,.35); }
+.pill.pink   { --bg1: linear-gradient(180deg, rgba(236,72,153,.12),  rgba(255,255,255,.04)); --bd: rgba(236,72,153,.35); }
+.pill.teal   { --bg1: linear-gradient(180deg, rgba(45,212,191,.12),  rgba(255,255,255,.04)); --bd: rgba(45,212,191,.35); }
+.pill.gray   { --bg1: linear-gradient(180deg, rgba(148,163,184,.12), rgba(255,255,255,.04)); --bd: rgba(148,163,184,.35); }
+
+.pill .emoji{ font-size:14px; opacity:.95 }
+
+/* reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .marquee .track{ animation:none }
 }
 
 /* soft edge fades */
@@ -324,25 +387,42 @@ footer{border-top:1px solid var(--border);padding:32px 0;color:#94a3b8;font-size
   </div>
 </header>
 
-<!-- LOGOS MARQUEE (refined) -->
+<!-- LOGOS MARQUEE (full-bleed, continuous) -->
 <div class="marquee">
   <div class="container">
+    <!-- We render the same list twice inside ONE track. The CSS animates -50%, so the seam is invisible. -->
     <div class="track" aria-hidden="true">
-      <!-- row 1 -->
-      <span class="pill cyan"><span class="emoji">🪙</span> Works with x402 (USDC)</span>
+      <!-- list A -->
+      <span class="pill cyan"><span class="emoji">🪙</span> x402 (USDC over HTTP)</span>
       <span class="pill amber"><span class="emoji">⚡️</span> Lightning L402 / LSAT</span>
       <span class="pill violet"><span class="emoji">🧠</span> ERC-4337 Smart Accounts</span>
-      <span class="pill blue"><span class="emoji">🔵</span> Base • Polygon</span>
+      <span class="pill blue"><span class="emoji">🔵</span> Base</span>
+      <span class="pill blue"><span class="emoji">🟣</span> Polygon</span>
       <span class="pill green"><span class="emoji">📄</span> Request Finance</span>
-      <span class="pill gray"><span class="emoji">✨</span> Lightspark</span>
+      <span class="pill gray"><span class="emoji">🧩</span> WalletConnect</span>
+      <span class="pill teal"><span class="emoji">🛡️</span> Safe (Gnosis)</span>
+      <span class="pill cyan"><span class="emoji">🏦</span> Circle</span>
+      <span class="pill gray"><span class="emoji">☁️</span> Alchemy</span>
+      <span class="pill gray"><span class="emoji">☁️</span> Infura</span>
+      <span class="pill amber"><span class="emoji">⚡️</span> Lightspark</span>
+      <span class="pill gray"><span class="emoji">🏗️</span> OpenNode</span>
+      <span class="pill pink"><span class="emoji">🔗</span> Chainlink</span>
 
-      <!-- repeat once for seamless loop -->
-      <span class="pill cyan"><span class="emoji">🪙</span> Works with x402 (USDC)</span>
+      <!-- list B (exact duplicate for seamless loop) -->
+      <span class="pill cyan"><span class="emoji">🪙</span> x402 (USDC over HTTP)</span>
       <span class="pill amber"><span class="emoji">⚡️</span> Lightning L402 / LSAT</span>
       <span class="pill violet"><span class="emoji">🧠</span> ERC-4337 Smart Accounts</span>
-      <span class="pill blue"><span class="emoji">🔵</span> Base • Polygon</span>
+      <span class="pill blue"><span class="emoji">🔵</span> Base</span>
+      <span class="pill blue"><span class="emoji">🟣</span> Polygon</span>
       <span class="pill green"><span class="emoji">📄</span> Request Finance</span>
-      <span class="pill gray"><span class="emoji">✨</span> Lightspark</span>
+      <span class="pill gray"><span class="emoji">🧩</span> WalletConnect</span>
+      <span class="pill teal"><span class="emoji">🛡️</span> Safe (Gnosis)</span>
+      <span class="pill cyan"><span class="emoji">🏦</span> Circle</span>
+      <span class="pill gray"><span class="emoji">☁️</span> Alchemy</span>
+      <span class="pill gray"><span class="emoji">☁️</span> Infura</span>
+      <span class="pill amber"><span class="emoji">⚡️</span> Lightspark</span>
+      <span class="pill gray"><span class="emoji">🏗️</span> OpenNode</span>
+      <span class="pill pink"><span class="emoji">🔗</span> Chainlink</span>
     </div>
   </div>
 </div>
