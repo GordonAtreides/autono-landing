@@ -50,16 +50,8 @@ h1{font-size:clamp(36px,6vw,64px);line-height:1.1;margin:16px 0}
 
 /* hero glow + grain */
 .hero .glow-wrap{pointer-events:none;position:absolute;inset:0}
-.hero .grain{
-  position:absolute;inset:0;opacity:.06;
-  background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%2240%22 viewBox=%220 0 40 40%22><path d=%22M0 40 V0 H40%22 fill=%22none%22 stroke=%22white%22 stroke-opacity=%220.12%22/></svg>');
-}
-.hero .orb{
-  position:absolute;left:50%;top:0;transform:translate(-50%,-20%);
-  width:700px;height:700px;border-radius:50%;filter:blur(48px);
-  background:radial-gradient(closest-side, rgba(56,189,248,.25), transparent 70%);
-  transition:transform .25s ease; will-change:transform;
-}
+.hero .grain{position:absolute;inset:0;opacity:.06;background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%2240%22 viewBox=%220 0 40 40%22><path d=%22M0 40 V0 H40%22 fill=%22none%22 stroke=%22white%22 stroke-opacity=%220.12%22/></svg>');}
+.hero .orb{position:absolute;left:50%;top:0;transform:translate(-50%,-20%);width:700px;height:700px;border-radius:50%;filter:blur(48px);background:radial-gradient(closest-side, rgba(56,189,248,.25), transparent 70%);transition:transform .25s ease;will-change:transform;}
 @media (prefers-reduced-motion: reduce){ .hero .orb{transition:none} }
 
 /* ===== Wallet demo ===== */
@@ -73,148 +65,54 @@ h1{font-size:clamp(36px,6vw,64px);line-height:1.1;margin:16px 0}
 .status.stop{background:#7f1d1d;color:#fee2e2}
 
 /* ===== Logos Marquee (full-bleed, continuous) ===== */
-.marquee{
-  position:relative;
-  padding:18px 0;
-  background:linear-gradient(180deg, rgba(103,232,249,.06), rgba(129,140,248,.06));
-  border-top:1px solid rgba(255,255,255,.08);
-  border-bottom:1px solid rgba(255,255,255,.08);
-  overflow:hidden;
-}
-
-/* make inner container full-bleed for this section only */
-.marquee .container{max-width:none; padding:0}
-
-/* soft edge fades */
-.marquee::before,
-.marquee::after{
-  content:"";
-  position:absolute; top:0; bottom:0; width:12vw; z-index:2; pointer-events:none;
-}
-.marquee::before{
-  left:0;
-  background:linear-gradient(90deg, rgba(10,10,10,1), rgba(10,10,10,0));
-}
-.marquee::after{
-  right:0;
-  background:linear-gradient(270deg, rgba(10,10,10,1), rgba(10,10,10,0));
-}
-
-/* track is wider than viewport and scrolls left forever */
-.marquee .track{
-  display:inline-flex; gap:18px; align-items:center;
-  white-space:nowrap;
-  will-change:transform;
-  min-width:max-content;  /* allow natural width */
-  animation:marquee-scroll 35s linear infinite;
-}
-.marquee .track:hover{ animation-play-state:paused; }
-
-@keyframes marquee-scroll{
-  from { transform: translateX(0) }
-  to   { transform: translateX(-50%) } /* because we duplicate content once */
-}
-
-/* colorful pills */
-.pill{
-  --bg1: rgba(255,255,255,.06);
-  --bd:  rgba(255,255,255,.16);
-  display:inline-flex; align-items:center; gap:8px;
-  font-size:13px; color:#e5e7eb;
-  padding:10px 14px; border-radius:999px;
-  border:1px solid var(--bd); background:var(--bg1);
-  box-shadow:0 0 0 1px rgba(255,255,255,.03), 0 12px 24px -10px rgba(0,0,0,.45);
-  transition:transform .18s ease, background .18s ease, border-color .18s ease;
-}
-.pill:hover{ transform:translateY(-2px); background:rgba(255,255,255,.08); }
-
-/* themed accents */
-.pill.cyan   { --bg1: linear-gradient(180deg, rgba(103,232,249,.10), rgba(255,255,255,.04)); --bd: rgba(103,232,249,.35); }
-.pill.violet { --bg1: linear-gradient(180deg, rgba(129,140,248,.12), rgba(255,255,255,.04)); --bd: rgba(129,140,248,.35); }
-.pill.blue   { --bg1: linear-gradient(180deg, rgba(59,130,246,.12),  rgba(255,255,255,.04)); --bd: rgba(59,130,246,.35); }
-.pill.amber  { --bg1: linear-gradient(180deg, rgba(245,158,11,.12),  rgba(255,255,255,.04)); --bd: rgba(245,158,11,.35); }
-.pill.green  { --bg1: linear-gradient(180deg, rgba(16,185,129,.12),  rgba(255,255,255,.04)); --bd: rgba(16,185,129,.35); }
-.pill.pink   { --bg1: linear-gradient(180deg, rgba(236,72,153,.12),  rgba(255,255,255,.04)); --bd: rgba(236,72,153,.35); }
-.pill.teal   { --bg1: linear-gradient(180deg, rgba(45,212,191,.12),  rgba(255,255,255,.04)); --bd: rgba(45,212,191,.35); }
-.pill.gray   { --bg1: linear-gradient(180deg, rgba(148,163,184,.12), rgba(255,255,255,.04)); --bd: rgba(148,163,184,.35); }
-
-.pill .emoji{ font-size:14px; opacity:.95 }
-
-/* reduced motion */
-@media (prefers-reduced-motion: reduce){
-  .marquee .track{ animation:none }
-}
-
-/* soft edge fades */
-.marquee::before,
-.marquee::after{
-  content:"";
-  position:absolute; top:0; bottom:0; width:120px; z-index:2; pointer-events:none;
-}
-.marquee::before{
-  left:0;
-  background:linear-gradient(90deg, rgba(10,10,10,1), rgba(10,10,10,0));
-}
-.marquee::after{
-  right:0;
-  background:linear-gradient(270deg, rgba(10,10,10,1), rgba(10,10,10,0));
-}
-
-.marquee .track{
-  display:flex; gap:18px; align-items:center;
-  white-space:nowrap; will-change:transform;
-  animation:marquee-scroll 28s linear infinite;
-}
-.marquee .track:hover{ animation-play-state:paused; }
-
-@keyframes marquee-scroll{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
-
-/* colorful “pills” */
-.pill{
-  --bg1: rgba(255,255,255,.06);
-  --bd:  rgba(255,255,255,.16);
-  display:inline-flex; align-items:center; gap:8px;
-  font-size:13px; color:#e5e7eb;
-  padding:10px 14px; border-radius:999px;
-  border:1px solid var(--bd); background:var(--bg1);
-  box-shadow:0 0 0 1px rgba(255,255,255,.03), 0 12px 24px -10px rgba(0,0,0,.45);
-  transition:transform .18s ease, background .18s ease, border-color .18s ease;
-}
-.pill:hover{ transform:translateY(-2px); background:rgba(255,255,255,.08); }
-
-/* themed accents */
-.pill.cyan   { --bg1: linear-gradient(180deg, rgba(103,232,249,.10), rgba(255,255,255,.04)); --bd: rgba(103,232,249,.35); }
-.pill.violet { --bg1: linear-gradient(180deg, rgba(129,140,248,.12), rgba(255,255,255,.04)); --bd: rgba(129,140,248,.35); }
-.pill.blue   { --bg1: linear-gradient(180deg, rgba(59,130,246,.12),  rgba(255,255,255,.04)); --bd: rgba(59,130,246,.35); }
-.pill.amber  { --bg1: linear-gradient(180deg, rgba(245,158,11,.12),  rgba(255,255,255,.04)); --bd: rgba(245,158,11,.35); }
-.pill.green  { --bg1: linear-gradient(180deg, rgba(16,185,129,.12),  rgba(255,255,255,.04)); --bd: rgba(16,185,129,.35); }
-.pill.gray   { --bg1: linear-gradient(180deg, rgba(148,163,184,.12), rgba(255,255,255,.04)); --bd: rgba(148,163,184,.35); }
-
-.pill .dot{
-  width:8px; height:8px; border-radius:999px; opacity:.9;
-  background: currentColor; /* will be overridden per-theme if desired */
-}
-.pill .emoji{ font-size:14px; opacity:.95 }
-
-/* reduced motion */
-@media (prefers-reduced-motion: reduce){
-  .marquee .track{ animation:none }
-}
+.marquee{position:relative;padding:18px 0;background:linear-gradient(180deg, rgba(103,232,249,.06), rgba(129,140,248,.06));border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08);overflow:hidden}
+.marquee .container{max-width:none;padding:0}
+.marquee::before,.marquee::after{content:"";position:absolute;top:0;bottom:0;width:12vw;z-index:2;pointer-events:none}
+.marquee::before{left:0;background:linear-gradient(90deg, rgba(10,10,10,1), rgba(10,10,10,0))}
+.marquee::after{right:0;background:linear-gradient(270deg, rgba(10,10,10,1), rgba(10,10,10,0))}
+.marquee .track{display:inline-flex;gap:18px;align-items:center;white-space:nowrap;will-change:transform;min-width:max-content;animation:marquee-scroll 35s linear infinite}
+.marquee .track:hover{animation-play-state:paused}
+@keyframes marquee-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.pill{--bg1:rgba(255,255,255,.06);--bd:rgba(255,255,255,.16);display:inline-flex;align-items:center;gap:8px;font-size:13px;color:#e5e7eb;padding:10px 14px;border-radius:999px;border:1px solid var(--bd);background:var(--bg1);box-shadow:0 0 0 1px rgba(255,255,255,.03),0 12px 24px -10px rgba(0,0,0,.45);transition:transform .18s ease, background .18s ease, border-color .18s ease}
+.pill:hover{transform:translateY(-2px);background:rgba(255,255,255,.08)}
+.pill.cyan{--bg1:linear-gradient(180deg, rgba(103,232,249,.10), rgba(255,255,255,.04));--bd:rgba(103,232,249,.35)}
+.pill.violet{--bg1:linear-gradient(180deg, rgba(129,140,248,.12), rgba(255,255,255,.04));--bd:rgba(129,140,248,.35)}
+.pill.blue{--bg1:linear-gradient(180deg, rgba(59,130,246,.12), rgba(255,255,255,.04));--bd:rgba(59,130,246,.35)}
+.pill.amber{--bg1:linear-gradient(180deg, rgba(245,158,11,.12), rgba(255,255,255,.04));--bd:rgba(245,158,11,.35)}
+.pill.green{--bg1:linear-gradient(180deg, rgba(16,185,129,.12), rgba(255,255,255,.04));--bd:rgba(16,185,129,.35)}
+.pill.pink{--bg1:linear-gradient(180deg, rgba(236,72,153,.12), rgba(255,255,255,.04));--bd:rgba(236,72,153,.35)}
+.pill.teal{--bg1:linear-gradient(180deg, rgba(45,212,191,.12), rgba(255,255,255,.04));--bd:rgba(45,212,191,.35)}
+.pill.gray{--bg1:linear-gradient(180deg, rgba(148,163,184,.12), rgba(255,255,255,.04));--bd:rgba(148,163,184,.35)}
+.pill .emoji{font-size:14px;opacity:.95}
+@media (prefers-reduced-motion: reduce){.marquee .track{animation:none}}
 
 /* ===== USP / Value ===== */
 .section{padding:90px 0}
 .usp .grid{display:grid;gap:18px}
 @media(min-width:900px){.usp .grid{grid-template-columns:repeat(4,1fr)}}
-.card{
-  border:1px solid rgba(255,255,255,.08);
-  background:linear-gradient(180deg,rgba(255,255,255,.05),transparent);
-  border-radius:16px;padding:24px;
-  box-shadow:0 0 0 1px rgba(255,255,255,.04), 0 30px 60px -15px rgba(0,0,0,.5);
-  transition:transform .18s ease, box-shadow .18s ease, background .18s ease; will-change:transform;
-}
+.card{border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,rgba(255,255,255,.05),transparent);border-radius:16px;padding:24px;box-shadow:0 0 0 1px rgba(255,255,255,.04), 0 30px 60px -15px rgba(0,0,0,.5);transition:transform .18s ease, box-shadow .18s ease, background .18s ease;will-change:transform}
 .card:hover{transform:translateY(-4px);background:rgba(255,255,255,.06);box-shadow:0 30px 60px -12px rgba(0,0,0,.6)}
 .card h3{margin:10px 0 8px;font-size:18px}
 .icon{font-size:18px;opacity:.9}
+
+/* ===== Coverage (Control • Settle • Assure) ===== */
+.coverage{position:relative;background: radial-gradient(60% 60% at 50% 0%, rgba(103,232,249,.06), transparent)}
+.cover-panel{position:relative;margin-top:18px;border:1px solid rgba(255,255,255,.10);border-radius:20px;padding:22px;background:linear-gradient(180deg, rgba(255,255,255,.05), transparent);box-shadow:0 0 0 1px rgba(255,255,255,.04), 0 30px 60px -15px rgba(0,0,0,.55);overflow:hidden}
+.pillars{position:relative;display:grid;gap:18px}
+@media(min-width:980px){ .pillars{ grid-template-columns:repeat(3,1fr) } }
+.pillar-card{position:relative;border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:18px;background:rgba(255,255,255,.04);min-height:220px;transition:transform .18s ease, background .18s ease, box-shadow .18s ease}
+.pillar-card:hover{transform:translateY(-4px);background:rgba(255,255,255,.06);box-shadow:0 24px 48px -18px rgba(0,0,0,.6)}
+.pillar-card h3{margin:10px 0 6px;font-size:18px}
+.pillar-card .list{margin:10px 0 0;padding:0 0 0 18px;color:#cbd5e1;line-height:1.6}
+.icon-ring{width:42px;height:42px;display:grid;place-items:center;border-radius:12px;background:linear-gradient(180deg, rgba(103,232,249,.18), rgba(129,140,248,.12));border:1px solid rgba(103,232,249,.35);box-shadow:0 10px 24px -12px rgba(0,0,0,.55), inset 0 0 32px rgba(103,232,249,.12);font-size:18px}
+/* connector line with pulsing nodes */
+.flow-line{pointer-events:none;position:absolute;left:18px;right:18px;bottom:18px;height:42px}
+.flow-line::before{content:"";position:absolute;left:0;right:0;top:50%;height:2px;transform:translateY(-50%);background:linear-gradient(90deg, rgba(129,140,248,.35), rgba(103,232,249,.35));border-radius:999px;opacity:.7}
+.flow-line .node{position:absolute;top:50%;width:12px;height:12px;transform:translateY(-50%);border-radius:999px;background:radial-gradient(circle at 50% 50%, rgba(103,232,249,1) 0%, rgba(103,232,249,.15) 55%, transparent 70%);box-shadow:0 0 22px rgba(103,232,249,.55);animation:pulse 2.2s ease-in-out infinite}
+.flow-line .node.left{left:16%}
+.flow-line .node.mid{left:50%;animation-delay:.5s}
+.flow-line .node.right{left:84%;animation-delay:1.1s}
+@keyframes pulse{0%,100%{transform:translateY(-50%) scale(.9);opacity:.85}50%{transform:translateY(-50%) scale(1.08);opacity:1}}
 
 /* ===== Use Cases ===== */
 .use .grid{display:grid;gap:18px}
@@ -224,62 +122,32 @@ h1{font-size:clamp(36px,6vw,64px);line-height:1.1;margin:16px 0}
 /* ===== Interactive Demo (refined) ===== */
 .demo-wrap{display:grid;gap:28px;align-items:start}
 @media(min-width:980px){.demo-wrap{grid-template-columns:1.05fr .95fr}}
-.panel{
-  border:1px solid rgba(255,255,255,.10);
-  background:linear-gradient(180deg,rgba(255,255,255,.05),transparent);
-  border-radius:16px; padding:20px;
-  box-shadow:0 0 0 1px rgba(255,255,255,.04), 0 30px 60px -15px rgba(0,0,0,.5);
-}
-
+.panel{border:1px solid rgba(255,255,255,.10);background:linear-gradient(180deg,rgba(255,255,255,.05),transparent);border-radius:16px;padding:20px;box-shadow:0 0 0 1px rgba(255,255,255,.04), 0 30px 60px -15px rgba(0,0,0,.5)}
 .controls{display:grid;gap:16px}
 .field{display:grid;gap:8px}
 .field label{font-size:13px;color:#cbd5e1}
-.input, .select, .chipbtn, .btn-lite{
-  border:1px solid rgba(255,255,255,.18);
-  background:rgba(255,255,255,.04);
-  color:#fff; border-radius:12px; padding:10px 12px; font-weight:600;
-}
+.input,.select,.chipbtn,.btn-lite{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.04);color:#fff;border-radius:12px;padding:10px 12px;font-weight:600}
 .select{appearance:none}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-
 .segment{display:flex;gap:8px;flex-wrap:wrap}
 .chipbtn{cursor:pointer}
 .chipbtn.active{background:#10b981;border-color:#10b981}
-.chipbtn.muted{opacity:.6}
-
-.slider{appearance:none; width:100%; height:6px; border-radius:999px; background:rgba(255,255,255,.12); outline:none}
+.slider{appearance:none;width:100%;height:6px;border-radius:999px;background:rgba(255,255,255,.12);outline:none}
 .slider::-webkit-slider-thumb{appearance:none;width:16px;height:16px;border-radius:50%;background:#fff;border:none}
 .small{font-size:12px;color:#9ca3af}
-
 .kpis{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
 .kpi{font-size:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);padding:6px 10px;border-radius:999px;color:#cbd5e1}
-
-.status{
-  border:1px solid rgba(255,255,255,.10); background:rgba(255,255,255,.04);
-  border-radius:16px; padding:16px; margin-top:8px;
-  font-family:ui-monospace,Menlo,monospace; font-size:14px;
-}
-.badge-lg{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:8px 12px;border-radius:999px;font-weight:800;letter-spacing:.02em;
-}
+.status{border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.04);border-radius:16px;padding:16px;margin-top:8px;font-family:ui-monospace,Menlo,monospace;font-size:14px}
+.badge-lg{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;font-weight:800;letter-spacing:.02em}
 .badge-allow{background:#064e3b;color:#a7f3d0;border:1px solid #065f46}
 .badge-deny{background:#7f1d1d;color:#fecaca;border:1px solid #7f1d1d}
 .trace{margin-top:12px;display:grid;gap:6px}
 .trace .ok{color:#a7f3d0}
 .trace .no{color:#fecaca}
-
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
 .btn-lite{cursor:pointer}
 .btn-lite.primary{background:#fff;color:#111;border-color:#fff}
 .btn-lite:hover{transform:translateY(-1px)}
-
-/* ===== How it works (expanded) ===== */
-.hiw .steps{display:grid;gap:16px}
-@media(min-width:900px){.hiw .steps{grid-template-columns:repeat(3,1fr)}}
-.step{border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px;background:linear-gradient(180deg,rgba(255,255,255,.05),transparent)}
-.step .n{display:inline-block;border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:4px 10px;font-size:12px;color:#cbd5e1}
-.step h4{margin:12px 0 6px}
 
 /* ===== Timeline (existing) ===== */
 .timeline{padding:90px 0}
@@ -327,6 +195,7 @@ footer{border-top:1px solid var(--border);padding:32px 0;color:#94a3b8;font-size
     <div class="logo"><span class="dot"></span><span>Autono</span></div>
     <div class="links">
       <a href="#usps">Value</a>
+      <a href="#coverage">Coverage</a>
       <a href="#usecases">Use cases</a>
       <a href="#hiw">How it works</a>
       <a href="#waitlist">Join</a>
@@ -390,7 +259,6 @@ footer{border-top:1px solid var(--border);padding:32px 0;color:#94a3b8;font-size
 <!-- LOGOS MARQUEE (full-bleed, continuous) -->
 <div class="marquee">
   <div class="container">
-    <!-- We render the same list twice inside ONE track. The CSS animates -50%, so the seam is invisible. -->
     <div class="track" aria-hidden="true">
       <!-- list A -->
       <span class="pill cyan"><span class="emoji">🪙</span> x402 (USDC over HTTP)</span>
@@ -407,8 +275,7 @@ footer{border-top:1px solid var(--border);padding:32px 0;color:#94a3b8;font-size
       <span class="pill amber"><span class="emoji">⚡️</span> Lightspark</span>
       <span class="pill gray"><span class="emoji">🏗️</span> OpenNode</span>
       <span class="pill pink"><span class="emoji">🔗</span> Chainlink</span>
-
-      <!-- list B (exact duplicate for seamless loop) -->
+      <!-- list B duplicate -->
       <span class="pill cyan"><span class="emoji">🪙</span> x402 (USDC over HTTP)</span>
       <span class="pill amber"><span class="emoji">⚡️</span> Lightning L402 / LSAT</span>
       <span class="pill violet"><span class="emoji">🧠</span> ERC-4337 Smart Accounts</span>
@@ -433,105 +300,15 @@ footer{border-top:1px solid var(--border);padding:32px 0;color:#94a3b8;font-size
     <h2 class="reveal" style="font-size:32px;margin:0 0 14px">Why Autono</h2>
     <p class="muted reveal" style="max-width:720px">The control plane that turns raw rails into finance-grade automation.</p>
     <div class="grid" style="margin-top:22px">
-      <div class="card reveal">
-        <div class="icon">🛡️</div>
-        <h3>Guardrails by default</h3>
-        <p class="muted">Allow-lists, per-call caps, daily budgets, velocity limits, and time-boxed keys.</p>
-      </div>
-      <div class="card reveal">
-        <div class="icon">🔗</div>
-        <h3>Multi-rail orchestration</h3>
-        <p class="muted">x402 for APIs, L402 for micro, and smart-account spend—one ruleset.</p>
-      </div>
-      <div class="card reveal">
-        <div class="icon">🧾</div>
-        <h3>Receipts & reconciliation</h3>
-        <p class="muted">Attach verifiable proofs to each call; export to your ledger in one click.</p>
-      </div>
-      <div class="card reveal">
-        <div class="icon">✅</div>
-        <h3>Compliance-calm</h3>
-        <p class="muted">Audit trails, Travel-Rule-ready data via partners, and promotions-friendly UX.</p>
-      </div>
+      <div class="card reveal"><div class="icon">🛡️</div><h3>Guardrails by default</h3><p class="muted">Allow-lists, per-call caps, daily budgets, velocity limits, and time-boxed keys.</p></div>
+      <div class="card reveal"><div class="icon">🔗</div><h3>Multi-rail orchestration</h3><p class="muted">x402 for APIs, L402 for micro, and smart-account spend—one ruleset.</p></div>
+      <div class="card reveal"><div class="icon">🧾</div><h3>Receipts & reconciliation</h3><p class="muted">Attach verifiable proofs to each call; export to your ledger in one click.</p></div>
+      <div class="card reveal"><div class="icon">✅</div><h3>Compliance-calm</h3><p class="muted">Audit trails, Travel-Rule-ready data via partners, and promotions-friendly UX.</p></div>
     </div>
   </div>
 </section>
-  /* ===== Coverage (Control • Settle • Assure) ===== */
-.coverage{
-  position:relative;
-  background: radial-gradient(60% 60% at 50% 0%, rgba(103,232,249,.06), transparent);
-}
-.cover-panel{
-  position:relative;
-  margin-top:18px;
-  border:1px solid rgba(255,255,255,.10);
-  border-radius:20px;
-  padding:22px;
-  background:linear-gradient(180deg, rgba(255,255,255,.05), transparent);
-  box-shadow:0 0 0 1px rgba(255,255,255,.04), 0 30px 60px -15px rgba(0,0,0,.55);
-  overflow:hidden;
-}
-.pillars{
-  position:relative;
-  display:grid; gap:18px;
-}
-@media(min-width:980px){ .pillars{ grid-template-columns:repeat(3,1fr); } }
 
-.pillar-card{
-  position:relative;
-  border:1px solid rgba(255,255,255,.10);
-  border-radius:16px;
-  padding:18px;
-  background:rgba(255,255,255,.04);
-  min-height:220px;
-  transition:transform .18s ease, background .18s ease, box-shadow .18s ease;
-}
-.pillar-card:hover{
-  transform:translateY(-4px);
-  background:rgba(255,255,255,.06);
-  box-shadow:0 24px 48px -18px rgba(0,0,0,.6);
-}
-.pillar-card h3{ margin:10px 0 6px; font-size:18px }
-.pillar-card .list{ margin:10px 0 0; padding:0 0 0 18px; color:#cbd5e1; line-height:1.6 }
-.icon-ring{
-  width:42px; height:42px; display:grid; place-items:center;
-  border-radius:12px;
-  background:linear-gradient(180deg, rgba(103,232,249,.18), rgba(129,140,248,.12));
-  border:1px solid rgba(103,232,249,.35);
-  box-shadow:0 10px 24px -12px rgba(0,0,0,.55), inset 0 0 32px rgba(103,232,249,.12);
-  font-size:18px;
-}
-
-/* connector line under the cards with glowing nodes */
-.flow-line{
-  pointer-events:none;
-  position:absolute; left:18px; right:18px; bottom:18px; height:42px;
-}
-.flow-line::before{
-  content:"";
-  position:absolute; left:0; right:0; top:50%;
-  height:2px; transform:translateY(-50%);
-  background:linear-gradient(90deg, rgba(129,140,248,.35), rgba(103,232,249,.35));
-  border-radius:999px;
-  opacity:.7;
-}
-.flow-line .node{
-  position:absolute; top:50%; width:12px; height:12px;
-  transform:translateY(-50%);
-  border-radius:999px;
-  background:radial-gradient(circle at 50% 50%, rgba(103,232,249,1) 0%, rgba(103,232,249,.15) 55%, transparent 70%);
-  box-shadow:0 0 22px rgba(103,232,249,.55);
-  animation:pulse 2.2s ease-in-out infinite;
-}
-.flow-line .node.left  { left:16% }
-.flow-line .node.mid   { left:50%; animation-delay:.5s }
-.flow-line .node.right { left:84%; animation-delay:1.1s }
-
-@keyframes pulse{
-  0%,100%{ transform:translateY(-50%) scale(.9); opacity:.85 }
-  50%    { transform:translateY(-50%) scale(1.08); opacity:1 }
-}
-<!-- COVERAGE: Control • Settle • Assure -->
+<!-- COVERAGE: Control • Settle • Assure (new) -->
 <section id="coverage" class="section coverage">
   <div class="container">
     <h2 class="reveal" style="font-size:32px;margin:0 0 10px">Comprehensive AI Agent Payment Coverage</h2>
@@ -540,88 +317,52 @@ footer{border-top:1px solid var(--border);padding:32px 0;color:#94a3b8;font-size
     </p>
 
     <div class="cover-panel reveal">
-      <!-- Pillars -->
       <div class="pillars">
-        <!-- Control -->
         <div class="pillar-card">
           <div class="icon-ring">⚙️</div>
           <h3>Autono Control</h3>
           <p class="muted">Prevent runaway spend with guardrails.</p>
-          <ul class="list">
-            <li>Budgets &amp; daily limits</li>
-            <li>Per-call caps</li>
-            <li>Vendor allow-lists</li>
-          </ul>
+          <ul class="list"><li>Budgets &amp; daily limits</li><li>Per-call caps</li><li>Vendor allow-lists</li></ul>
         </div>
-
-        <!-- Settle -->
         <div class="pillar-card">
           <div class="icon-ring">💸</div>
           <h3>Autono Settle</h3>
           <p class="muted">Execute across the best-fit rail.</p>
-          <ul class="list">
-            <li>x402 (USDC over HTTP)</li>
-            <li>Lightning L402 / LSAT</li>
-            <li>ERC-4337 smart accounts</li>
-          </ul>
+          <ul class="list"><li>x402 (USDC over HTTP)</li><li>Lightning L402 / LSAT</li><li>ERC-4337 smart accounts</li></ul>
         </div>
-
-        <!-- Assure -->
         <div class="pillar-card">
           <div class="icon-ring">📊</div>
           <h3>Autono Assure</h3>
           <p class="muted">Proof for finance and compliance.</p>
-          <ul class="list">
-            <li>Receipts &amp; evidence</li>
-            <li>Reconciliation exports</li>
-            <li>Audit-ready trails</li>
-          </ul>
+          <ul class="list"><li>Receipts &amp; evidence</li><li>Reconciliation exports</li><li>Audit-ready trails</li></ul>
         </div>
       </div>
-
-      <!-- Flow line & nodes (visual connector) -->
       <div class="flow-line" aria-hidden="true">
-        <span class="node left"></span>
-        <span class="node mid"></span>
-        <span class="node right"></span>
+        <span class="node left"></span><span class="node mid"></span><span class="node right"></span>
       </div>
     </div>
   </div>
 </section>
+
 <!-- USE CASES -->
 <section id="usecases" class="section use">
   <div class="container">
     <h2 class="reveal" style="font-size:32px;margin:0 0 14px">Built for real workloads</h2>
     <div class="grid" style="margin-top:22px">
-      <div class="card reveal">
-        <h3>AI agents</h3>
-        <p class="muted">Give each agent a scoped wallet, budget, and per-call cap. Stop loops and abuse.</p>
-        <div class="chip" style="display:inline-block;margin-top:8px">RAG / support bots</div>
-      </div>
-      <div class="card reveal">
-        <h3>API vendors</h3>
-        <p class="muted">Offer pay-per-request with auto-reconciliation. Disputes drop when receipts are verifiable.</p>
-        <div class="chip" style="display:inline-block;margin-top:8px">Data & LLM APIs</div>
-      </div>
-      <div class="card reveal">
-        <h3>Crypto-native teams</h3>
-        <p class="muted">Route micro-spend over sats; pay vendors in USDC; export clean books to accounting.</p>
-        <div class="chip" style="display:inline-block;margin-top:8px">DePIN • DAOs</div>
-      </div>
+      <div class="card reveal"><h3>AI agents</h3><p class="muted">Give each agent a scoped wallet, budget, and per-call cap. Stop loops and abuse.</p><div class="chip" style="display:inline-block;margin-top:8px">RAG / support bots</div></div>
+      <div class="card reveal"><h3>API vendors</h3><p class="muted">Offer pay-per-request with auto-reconciliation. Disputes drop when receipts are verifiable.</p><div class="chip" style="display:inline-block;margin-top:8px">Data & LLM APIs</div></div>
+      <div class="card reveal"><h3>Crypto-native teams</h3><p class="muted">Route micro-spend over sats; pay vendors in USDC; export clean books to accounting.</p><div class="chip" style="display:inline-block;margin-top:8px">DePIN • DAOs</div></div>
     </div>
   </div>
 </section>
 
-<!-- INTERACTIVE DEMO (refined UI) -->
+<!-- INTERACTIVE DEMO -->
 <section id="demo" class="section">
   <div class="container demo-wrap">
-    <!-- LEFT: Controls -->
     <div class="panel reveal">
       <h3 style="margin:0 0 6px">Try the policy decision flow</h3>
       <p class="small" style="margin:0 0 14px">Pick a vendor and amount. Policies run in this order: <em>allow-list → per-call cap → daily budget</em>.</p>
-
       <div class="controls">
-        <!-- Vendor -->
         <div class="field">
           <label>Vendor</label>
           <div class="segment" role="group" aria-label="Vendor">
@@ -631,21 +372,14 @@ footer{border-top:1px solid var(--border);padding:32px 0;color:#94a3b8;font-size
           </div>
           <div class="small">Allow-list: <code>openai, anthropic</code></div>
         </div>
-
-        <!-- Amount -->
         <div class="field">
           <label>Amount (USDC)</label>
           <div class="row">
             <input id="amt" type="range" min="0.01" max="0.30" step="0.01" value="0.12" class="slider" style="flex:1">
             <input id="amtNum" type="number" step="0.01" value="0.12" class="input" style="width:110px">
           </div>
-          <div class="kpis">
-            <span class="kpi">Typical LLM call: $0.03–$0.15</span>
-            <span class="kpi">Micro-payments ready</span>
-          </div>
+          <div class="kpis"><span class="kpi">Typical LLM call: $0.03–$0.15</span><span class="kpi">Micro-payments ready</span></div>
         </div>
-
-        <!-- Per-call cap -->
         <div class="field">
           <label>Per-call cap</label>
           <div class="row">
@@ -654,16 +388,10 @@ footer{border-top:1px solid var(--border);padding:32px 0;color:#94a3b8;font-size
           </div>
           <div class="small">This prevents runaway costs on a single request.</div>
         </div>
-
-        <!-- Actions -->
-        <div class="actions">
-          <button id="eval" class="btn-lite primary">Evaluate</button>
-          <button id="resetDemo" class="btn-lite">Reset</button>
-        </div>
+        <div class="actions"><button id="eval" class="btn-lite primary">Evaluate</button><button id="resetDemo" class="btn-lite">Reset</button></div>
       </div>
     </div>
 
-    <!-- RIGHT: Result -->
     <div class="panel reveal">
       <h3 style="margin:0 0 6px">Decision & policy trace</h3>
       <div class="status" id="statusBox">
@@ -676,65 +404,37 @@ footer{border-top:1px solid var(--border);padding:32px 0;color:#94a3b8;font-size
         </div>
       </div>
       <p class="small" style="margin-top:10px">Every decision is logged with reasons and ready for export as a receipt.</p>
+      <div id="hero-lottie" class="reveal" style="margin:22px 0 0;width:100%;height:220px"></div>
     </div>
   </div>
 </section>
 
-<!-- HOW IT WORKS (expanded) -->
+<!-- HOW IT WORKS -->
 <section id="hiw" class="section hiw">
   <div class="container">
     <h2 class="reveal" style="font-size:32px;margin:0 0 14px">How it works</h2>
-    <div class="steps" style="margin-top:22px">
-      <div class="step reveal">
-        <span class="n">Step 1</span>
-        <h4>Connect agents & vendors</h4>
-        <p class="muted">Create agent wallets, link API vendors, and set identities.</p>
-      </div>
-      <div class="step reveal">
-        <span class="n">Step 2</span>
-        <h4>Set policies</h4>
-        <p class="muted">Allow-lists, per-call caps ($/sats), daily budgets, and approvals.</p>
-      </div>
-      <div class="step reveal">
-        <span class="n">Step 3</span>
-        <h4>Go live with receipts</h4>
-        <p class="muted">Gateway enforces decisions; every transaction has verifiable evidence.</p>
-      </div>
+    <div class="steps" style="margin-top:22px;display:grid;gap:16px">
+      <div class="step reveal"><span class="n">Step 1</span><h4>Connect agents & vendors</h4><p class="muted">Create agent wallets, link API vendors, and set identities.</p></div>
+      <div class="step reveal"><span class="n">Step 2</span><h4>Set policies</h4><p class="muted">Allow-lists, per-call caps ($/sats), daily budgets, and approvals.</p></div>
+      <div class="step reveal"><span class="n">Step 3</span><h4>Go live with receipts</h4><p class="muted">Gateway enforces decisions; every transaction has verifiable evidence.</p></div>
     </div>
   </div>
 </section>
 
-<!-- TIMELINE (existing animation) -->
+<!-- TIMELINE -->
 <section class="timeline" id="timeline">
   <div class="twrap reveal">
-    <div class="thead">
-      <h3>Agent Spend Timeline</h3>
-      <div class="legend">
-        <span class="badge ok">Allowed</span>
-        <span class="badge no">Denied</span>
-      </div>
-    </div>
+    <div class="thead"><h3>Agent Spend Timeline</h3><div class="legend"><span class="badge ok">Allowed</span><span class="badge no">Denied</span></div></div>
     <div class="track" id="track">
-      <div class="tick" style="left:10%"></div>
-      <div class="tick" style="left:30%"></div>
-      <div class="tick" style="left:50%"></div>
-      <div class="tick" style="left:70%"></div>
-      <div class="tick" style="left:90%"></div>
+      <div class="tick" style="left:10%"></div><div class="tick" style="left:30%"></div><div class="tick" style="left:50%"></div><div class="tick" style="left:70%"></div><div class="tick" style="left:90%"></div>
     </div>
-    <div style="display:flex;justify-content:space-between;margin-top:10px;color:#cbd5e1;font-size:12px">
-      <span>Now</span><span>+30s</span><span>+60s</span>
-    </div>
+    <div style="display:flex;justify-content:space-between;margin-top:10px;color:#cbd5e1;font-size:12px"><span>Now</span><span>+30s</span><span>+60s</span></div>
   </div>
 </section>
 
 <!-- SOCIAL PROOF -->
 <section class="section">
-  <div class="container">
-    <div class="quote reveal">
-      <p style="margin:0">“Shadow Mode flagged <strong>1.7% preventable spend</strong> in week one. Turning on per-call caps was a no-brainer.”</p>
-      <small>— API infra lead, beta partner</small>
-    </div>
-  </div>
+  <div class="container"><div class="quote reveal"><p style="margin:0">“Shadow Mode flagged <strong>1.7% preventable spend</strong> in week one. Turning on per-call caps was a no-brainer.”</p><small>— API infra lead, beta partner</small></div></div>
 </section>
 
 <!-- WAITLIST -->
@@ -744,8 +444,7 @@ footer{border-top:1px solid var(--border);padding:32px 0;color:#94a3b8;font-size
       <h3 style="margin:0 0 6px">Get early access</h3>
       <p class="muted">Tell us where to send the invite. We’ll prioritise teams spending on APIs/compute.</p>
       <form id="wl" style="display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:12px">
-        <input id="email" type="email" placeholder="you@company.com" required
-          style="padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:#0b0b0b;color:#fff;font-size:14px;outline:none" />
+        <input id="email" type="email" placeholder="you@company.com" required style="padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:#0b0b0b;color:#fff;font-size:14px;outline:none" />
         <button class="btn" type="submit">Join</button>
       </form>
       <div id="thanks" style="display:none;margin-top:12px;border:1px solid #065f46;background:#064e3b;color:#d1fae5;padding:10px;border-radius:10px;font-size:14px">Thanks! You’re on the list.</div>
@@ -766,191 +465,27 @@ footer{border-top:1px solid var(--border);padding:32px 0;color:#94a3b8;font-size
 <footer>
   <div class="container footer-inner">
     <p>© <span id="y"></span> Autono</p>
-    <div style="display:flex;gap:16px">
-      <a class="link" href="#">Privacy</a>
-      <a class="link" href="#">Contact</a>
-    </div>
+    <div style="display:flex;gap:16px"><a class="link" href="#">Privacy</a><a class="link" href="#">Contact</a></div>
   </div>
 </footer>
 
 <script>
-/* ===== Reveal on scroll ===== */
-const io = new IntersectionObserver((entries)=>{
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
-},{ threshold: 0.18 });
-document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-/* ===== Scroll progress ===== */
-const prog = document.getElementById('progress');
-function updateProgress(){
-  const s = window.scrollY;
-  const h = document.body.scrollHeight - window.innerHeight;
-  const p = h ? (s / h) : 0;
-  prog.style.width = `${p*100}%`;
-}
-updateProgress();
-window.addEventListener('scroll', updateProgress, { passive:true });
-
-/* ===== Hero orb follows mouse ===== */
-const orb = document.getElementById('orb');
-if (orb){
-  window.addEventListener('mousemove', (e)=>{
-    const x = (e.clientX / window.innerWidth - 0.5) * 60;
-    const y = (e.clientY / window.innerHeight - 0.2) * 30;
-    orb.style.transform = `translate(calc(-50% + ${x}px), calc(-20% + ${y}px))`;
-  }, { passive:true });
-}
-
-/* ===== Optional Lottie (needs hero.json placed next to this file) ===== */
-if (window.lottie && document.getElementById('hero-lottie')){
-  try{
-    window.lottie.loadAnimation({
-      container: document.getElementById('hero-lottie'),
-      renderer: 'svg',
-      loop: true,
-      autoplay: true,
-      path: 'hero.json'
-    });
-  } catch(e){}
-}
-
-/* ===== Footer year + demo waitlist submit (replace with Formspree to collect for real) ===== */
-document.getElementById('y').textContent = new Date().getFullYear();
-const form = document.getElementById('wl');
-form.addEventListener('submit', async (e)=>{
-  e.preventDefault();
-  // To collect emails for real, use Formspree:
-  // await fetch("https://formspree.io/f/YOUR_ID", {
-  //   method:"POST", headers:{ "Content-Type":"application/json" }, body: JSON.stringify({ email: document.getElementById('email').value })
-  // });
-  document.getElementById('thanks').style.display='block';
-  form.reset();
-});
-
-/* ===== Wallet animation (hero) ===== */
-let balA=100.00, balB=45.00, balC=75.00, phase=0;
-function updateBalances(){
-  if(phase===0){ balA-=5; if(balA<=70) phase=1; }
-  else if(phase===1){ balB+=5; if(balB>=80) phase=2; }
-  else if(phase===2){ balC-=5; if(balC<=50){ const s=document.getElementById('statC'); s.textContent='Budget Cap'; s.className='status stop'; phase=3; } }
-  else { balA=100; balB=45; balC=75; const s=document.getElementById('statC'); s.textContent='Active'; s.className='status ok'; phase=0; }
-  document.getElementById('balA').textContent=`$${balA.toFixed(2)}`;
-  document.getElementById('balB').textContent=`$${balB.toFixed(2)}`;
-  document.getElementById('balC').textContent=`$${balC.toFixed(2)}`;
-}
-setInterval(updateBalances,800);
-
-/* ===== Timeline of agent spend ===== */
-const track = document.getElementById('track');
-const CAP = 0.10; // per-call cap for demo
-function spawnCall(){
-  const amt = Math.round((0.05 + Math.random()*0.2) * 100)/100; // 0.05..0.25
-  const allowed = amt <= CAP;
-
-  const el = document.createElement('div');
-  el.className = 'call';
-  const badge = document.createElement('span');
-  badge.className = 'badge ' + (allowed ? 'ok' : 'no');
-  badge.textContent = allowed ? 'Allowed' : 'Denied';
-  el.innerHTML = `<span>API $${amt.toFixed(2)}</span>`;
-  el.appendChild(badge);
-
-  el.style.top = allowed ? '18px' : '46px';
-  track.appendChild(el);
-  requestAnimationFrame(()=> el.classList.add('go'));
-  if(!allowed){ setTimeout(()=> el.style.opacity='0.45', 1200); }
-  setTimeout(()=> track.removeChild(el), 6500);
-}
-let timer = setInterval(spawnCall, 900);
-if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { clearInterval(timer); }
-
-/* ===== Interactive demo logic (refined) ===== */
-const vendorButtons = Array.from(document.querySelectorAll('.chipbtn[data-vendor]'));
-let vendor = 'openai';
-
-vendorButtons.forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    vendor = btn.getAttribute('data-vendor') || 'openai';
-    vendorButtons.forEach(b=>b.classList.toggle('active', b===btn));
-    updateStatus(false);
-  });
-});
-
-const amt = document.getElementById('amt');
-const amtNum = document.getElementById('amtNum');
-const capRange = document.getElementById('capRange');
-const capNum = document.getElementById('capNum');
-
-function sync(from){
-  if(from==='amt'){ amtNum.value = Number(amt.value).toFixed(2); }
-  if(from==='amtNum'){ amt.value = Number(amtNum.value || 0).toFixed(2); }
-  if(from==='cap'){ capNum.value = Number(capRange.value).toFixed(2); }
-  if(from==='capNum'){ capRange.value = Number(capNum.value || 0).toFixed(2); }
-}
-amt.addEventListener('input', ()=>{ sync('amt'); updateStatus(false); });
-amtNum.addEventListener('input', ()=>{ sync('amtNum'); updateStatus(false); });
-capRange.addEventListener('input', ()=>{ sync('cap'); updateStatus(false); });
-capNum.addEventListener('input', ()=>{ sync('capNum'); updateStatus(false); });
-
-const badge = document.getElementById('badge');
-const trace = document.getElementById('trace');
-const summary = document.getElementById('summary');
-const evalBtn = document.getElementById('eval');
-const resetBtn = document.getElementById('resetDemo');
-const statusBox = document.getElementById('statusBox');
-
-function evaluateDecision() {
-  const allowlist = ['openai','anthropic'];
-  const amount = parseFloat(amtNum.value || '0');
-  const cap = parseFloat(capNum.value || '0');
-  const checks = {
-    allow: allowlist.includes(vendor),
-    cap: amount <= cap,
-    budget: true // placeholder (always passes in demo)
-  };
-  const denyReasons = [];
-  if (!checks.allow) denyReasons.push('Not on allow-list');
-  if (!checks.cap) denyReasons.push(`Exceeds per-call cap $${cap.toFixed(2)}`);
-
-  const decision = denyReasons.length ? 'DENY' : 'ALLOW';
-  return { decision, checks, amount, cap, reasons: denyReasons };
-}
-
-function updateStatus(flash=true){
-  const { decision, checks, amount, cap, reasons } = evaluateDecision();
-
-  // Badge visual
-  badge.textContent = decision;
-  badge.className = 'badge-lg ' + (decision==='ALLOW' ? 'badge-allow' : 'badge-deny');
-
-  // Summary
-  summary.innerHTML = `Vendor: <code>${vendor}</code> • Amount: <code>$${amount.toFixed(2)}</code> • Cap: <code>$${cap.toFixed(2)}</code>`;
-
-  // Trace lines
-  trace.innerHTML = `
-    <div>• Allow-list: <span class="${checks.allow ? 'ok' : 'no'}">${checks.allow ? 'PASS' : 'FAIL'}</span></div>
-    <div>• Per-call cap: <span class="${checks.cap ? 'ok' : 'no'}">${checks.cap ? 'PASS' : 'FAIL'} ${checks.cap ? '' : `(>$${cap.toFixed(2)})`}</span></div>
-    <div>• Daily budget: <span class="${checks.budget ? 'ok' : 'no'}">${checks.budget ? 'PASS' : 'FAIL'}</span></div>
-  `;
-
-  // Subtle flash to acknowledge update
-  if (flash){
-    statusBox.style.boxShadow = '0 0 0 1px rgba(255,255,255,.10), 0 0 0 9999px rgba(0,0,0,0)';
-    statusBox.animate([{filter:'brightness(1.0)'},{filter:'brightness(1.15)'},{filter:'brightness(1.0)'}], {duration:400, easing:'ease-out'});
-  }
-}
-
-evalBtn.addEventListener('click', ()=> updateStatus(true));
-resetBtn.addEventListener('click', ()=>{
-  vendor = 'openai';
-  vendorButtons.forEach(b=>b.classList.toggle('active', b.getAttribute('data-vendor')==='openai'));
-  amt.value = '0.12'; amtNum.value = '0.12';
-  capRange.value = '0.10'; capNum.value = '0.10';
-  updateStatus(false);
-});
-
-// initial paint
-updateStatus(false);
+/* Reveal on scroll */
+const io = new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});},{threshold:0.18});document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+/* Scroll progress */
+const prog=document.getElementById('progress');function updateProgress(){const s=window.scrollY,h=document.body.scrollHeight-window.innerHeight,p=h?(s/h):0;prog.style.width=`${p*100}%`;}updateProgress();window.addEventListener('scroll',updateProgress,{passive:true});
+/* Hero orb follows mouse */
+const orb=document.getElementById('orb');if(orb){window.addEventListener('mousemove',(e)=>{const x=(e.clientX/window.innerWidth-0.5)*60;const y=(e.clientY/window.innerHeight-0.2)*30;orb.style.transform=`translate(calc(-50% + ${x}px), calc(-20% + ${y}px))`;},{passive:true});}
+/* Optional Lottie */
+if(window.lottie&&document.getElementById('hero-lottie')){try{window.lottie.loadAnimation({container:document.getElementById('hero-lottie'),renderer:'svg',loop:true,autoplay:true,path:'hero.json'});}catch(e){}}
+/* Footer year + demo waitlist submit */
+document.getElementById('y').textContent=new Date().getFullYear();const form=document.getElementById('wl');form.addEventListener('submit',async(e)=>{e.preventDefault();document.getElementById('thanks').style.display='block';form.reset();});
+/* Wallet animation (hero) */
+let balA=100.00,balB=45.00,balC=75.00,phase=0;function updateBalances(){if(phase===0){balA-=5;if(balA<=70)phase=1;}else if(phase===1){balB+=5;if(balB>=80)phase=2;}else if(phase===2){balC-=5;if(balC<=50){const s=document.getElementById('statC');s.textContent='Budget Cap';s.className='status stop';phase=3;}}else{balA=100;balB=45;balC=75;const s=document.getElementById('statC');s.textContent='Active';s.className='status ok';phase=0;}document.getElementById('balA').textContent=`$${balA.toFixed(2)}`;document.getElementById('balB').textContent=`$${balB.toFixed(2)}`;document.getElementById('balC').textContent=`$${balC.toFixed(2)}`;}setInterval(updateBalances,800);
+/* Timeline of agent spend */
+const track=document.getElementById('track');const CAP=0.10;function spawnCall(){const amt=Math.round((0.05+Math.random()*0.2)*100)/100;const allowed=amt<=CAP;const el=document.createElement('div');el.className='call';const badge=document.createElement('span');badge.className='badge '+(allowed?'ok':'no');badge.textContent=allowed?'Allowed':'Denied';el.innerHTML=`<span>API $${amt.toFixed(2)}</span>`;el.appendChild(badge);el.style.top=allowed?'18px':'46px';track.appendChild(el);requestAnimationFrame(()=>el.classList.add('go'));if(!allowed){setTimeout(()=>el.style.opacity='0.45',1200);}setTimeout(()=>track.removeChild(el),6500);}let timer=setInterval(spawnCall,900);if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){clearInterval(timer);}
+/* Interactive demo logic */
+const vendorButtons=Array.from(document.querySelectorAll('.chipbtn[data-vendor]'));let vendor='openai';vendorButtons.forEach(btn=>{btn.addEventListener('click',()=>{vendor=btn.getAttribute('data-vendor')||'openai';vendorButtons.forEach(b=>b.classList.toggle('active',b===btn));updateStatus(false);});});const amt=document.getElementById('amt');const amtNum=document.getElementById('amtNum');const capRange=document.getElementById('capRange');const capNum=document.getElementById('capNum');function sync(from){if(from==='amt'){amtNum.value=Number(amt.value).toFixed(2);}if(from==='amtNum'){amt.value=Number(amtNum.value||0).toFixed(2);}if(from==='cap'){capNum.value=Number(capRange.value).toFixed(2);}if(from==='capNum'){capRange.value=Number(capNum.value||0).toFixed(2);}}amt.addEventListener('input',()=>{sync('amt');updateStatus(false);});amtNum.addEventListener('input',()=>{sync('amtNum');updateStatus(false);});capRange.addEventListener('input',()=>{sync('cap');updateStatus(false);});capNum.addEventListener('input',()=>{sync('capNum');updateStatus(false);});const badge=document.getElementById('badge');const trace=document.getElementById('trace');const summary=document.getElementById('summary');const evalBtn=document.getElementById('eval');const resetBtn=document.getElementById('resetDemo');const statusBox=document.getElementById('statusBox');function evaluateDecision(){const allowlist=['openai','anthropic'];const amount=parseFloat(amtNum.value||'0');const cap=parseFloat(capNum.value||'0');const checks={allow:allowlist.includes(vendor),cap:amount<=cap,budget:true};const denyReasons=[];if(!checks.allow)denyReasons.push('Not on allow-list');if(!checks.cap)denyReasons.push(`Exceeds per-call cap $${cap.toFixed(2)}`);const decision=denyReasons.length?'DENY':'ALLOW';return{decision,checks,amount,cap,reasons:denyReasons};}function updateStatus(flash=true){const {decision,checks,amount,cap}=evaluateDecision();badge.textContent=decision;badge.className='badge-lg '+(decision==='ALLOW'?'badge-allow':'badge-deny');summary.innerHTML=`Vendor: <code>${vendor}</code> • Amount: <code>$${amount.toFixed(2)}</code> • Cap: <code>$${cap.toFixed(2)}</code>`;trace.innerHTML=`<div>• Allow-list: <span class="${checks.allow?'ok':'no'}">${checks.allow?'PASS':'FAIL'}</span></div><div>• Per-call cap: <span class="${checks.cap?'ok':'no'}">${checks.cap?'PASS':'FAIL'} ${checks.cap?'':`(>$${cap.toFixed(2)})`}</span></div><div>• Daily budget: <span class="${checks.budget?'ok':'no'}">${checks.budget?'PASS':'FAIL'}</span></div>`;if(flash){statusBox.animate([{filter:'brightness(1.0)'},{filter:'brightness(1.15)'},{filter:'brightness(1.0)'}],{duration:400,easing:'ease-out'});} }evalBtn.addEventListener('click',()=>updateStatus(true));resetBtn.addEventListener('click',()=>{vendor='openai';vendorButtons.forEach(b=>b.classList.toggle('active',b.getAttribute('data-vendor')==='openai'));amt.value='0.12';amtNum.value='0.12';capRange.value='0.10';capNum.value='0.10';updateStatus(false);});updateStatus(false);
 </script>
 
 </body>
