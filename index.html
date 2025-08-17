@@ -98,14 +98,58 @@ h1{font-size:clamp(36px,6vw,64px);line-height:1.1;margin:16px 0}
 @media(min-width:900px){.use .grid{grid-template-columns:repeat(3,1fr)}}
 .use .card p{min-height:48px}
 
-/* ===== Interactive Demo ===== */
-.demo-wrap{display:grid;gap:24px;align-items:start}
-@media(min-width:980px){.demo-wrap{grid-template-columns:1.1fr .9fr}}
-.demo-card{border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.05);border-radius:16px;padding:18px}
-.demo-row{display:flex;align-items:center;gap:12px;margin-top:10px}
-.demo-btn{border:1px solid rgba(255,255,255,.18);background:transparent;color:#fff;border-radius:10px;padding:8px 10px;font-weight:600;cursor:pointer}
-.demo-btn.active{background:#10b981;border-color:#10b981}
-.demo-output{margin-top:12px;border:1px dashed rgba(255,255,255,.2);border-radius:12px;padding:12px;font-family:ui-monospace,Menlo,monospace}
+/* ===== Interactive Demo (refined) ===== */
+.demo-wrap{display:grid;gap:28px;align-items:start}
+@media(min-width:980px){.demo-wrap{grid-template-columns:1.05fr .95fr}}
+.panel{
+  border:1px solid rgba(255,255,255,.10);
+  background:linear-gradient(180deg,rgba(255,255,255,.05),transparent);
+  border-radius:16px; padding:20px;
+  box-shadow:0 0 0 1px rgba(255,255,255,.04), 0 30px 60px -15px rgba(0,0,0,.5);
+}
+
+.controls{display:grid;gap:16px}
+.field{display:grid;gap:8px}
+.field label{font-size:13px;color:#cbd5e1}
+.input, .select, .chipbtn, .btn-lite{
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.04);
+  color:#fff; border-radius:12px; padding:10px 12px; font-weight:600;
+}
+.select{appearance:none}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+.segment{display:flex;gap:8px;flex-wrap:wrap}
+.chipbtn{cursor:pointer}
+.chipbtn.active{background:#10b981;border-color:#10b981}
+.chipbtn.muted{opacity:.6}
+
+.slider{appearance:none; width:100%; height:6px; border-radius:999px; background:rgba(255,255,255,.12); outline:none}
+.slider::-webkit-slider-thumb{appearance:none;width:16px;height:16px;border-radius:50%;background:#fff;border:none}
+.small{font-size:12px;color:#9ca3af}
+
+.kpis{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.kpi{font-size:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);padding:6px 10px;border-radius:999px;color:#cbd5e1}
+
+.status{
+  border:1px solid rgba(255,255,255,.10); background:rgba(255,255,255,.04);
+  border-radius:16px; padding:16px; margin-top:8px;
+  font-family:ui-monospace,Menlo,monospace; font-size:14px;
+}
+.badge-lg{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 12px;border-radius:999px;font-weight:800;letter-spacing:.02em;
+}
+.badge-allow{background:#064e3b;color:#a7f3d0;border:1px solid #065f46}
+.badge-deny{background:#7f1d1d;color:#fecaca;border:1px solid #7f1d1d}
+.trace{margin-top:12px;display:grid;gap:6px}
+.trace .ok{color:#a7f3d0}
+.trace .no{color:#fecaca}
+
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.btn-lite{cursor:pointer}
+.btn-lite.primary{background:#fff;color:#111;border-color:#fff}
+.btn-lite:hover{transform:translateY(-1px)}
 
 /* ===== How it works (expanded) ===== */
 .hiw .steps{display:grid;gap:16px}
@@ -295,45 +339,70 @@ footer{border-top:1px solid var(--border);padding:32px 0;color:#94a3b8;font-size
   </div>
 </section>
 
-<!-- INTERACTIVE DEMO -->
+<!-- INTERACTIVE DEMO (refined UI) -->
 <section id="demo" class="section">
   <div class="container demo-wrap">
-    <div class="demo-card reveal">
-      <h3>Try the policy decision flow</h3>
-      <div class="demo-row">
-        <label>Vendor:</label>
-        <select id="dVendor" class="demo-btn" style="padding:8px 10px">
-          <option value="openai">openai</option>
-          <option value="anthropic">anthropic</option>
-          <option value="unknown">unknown</option>
-        </select>
-      </div>
-      <div class="demo-row">
-        <label>Amount (USDC):</label>
-        <input id="dAmt" type="number" step="0.01" value="0.12" class="demo-btn" style="width:110px" />
-        <button id="cap" class="demo-btn">Per-call cap: $0.10</button>
-      </div>
-      <div class="demo-row">
-        <button id="allowBtn" class="demo-btn active">Allow-list: openai, anthropic</button>
-      </div>
-      <div class="demo-output" id="dOut">Click “Evaluate” to see the decision.</div>
-      <div class="demo-row">
-        <button id="eval" class="btn">Evaluate</button>
-        <button id="resetDemo" class="btn outline">Reset</button>
+    <!-- LEFT: Controls -->
+    <div class="panel reveal">
+      <h3 style="margin:0 0 6px">Try the policy decision flow</h3>
+      <p class="small" style="margin:0 0 14px">Pick a vendor and amount. Policies run in this order: <em>allow-list → per-call cap → daily budget</em>.</p>
+
+      <div class="controls">
+        <!-- Vendor -->
+        <div class="field">
+          <label>Vendor</label>
+          <div class="segment" role="group" aria-label="Vendor">
+            <button type="button" class="chipbtn active" data-vendor="openai">openai</button>
+            <button type="button" class="chipbtn" data-vendor="anthropic">anthropic</button>
+            <button type="button" class="chipbtn" data-vendor="unknown">unknown</button>
+          </div>
+          <div class="small">Allow-list: <code>openai, anthropic</code></div>
+        </div>
+
+        <!-- Amount -->
+        <div class="field">
+          <label>Amount (USDC)</label>
+          <div class="row">
+            <input id="amt" type="range" min="0.01" max="0.30" step="0.01" value="0.12" class="slider" style="flex:1">
+            <input id="amtNum" type="number" step="0.01" value="0.12" class="input" style="width:110px">
+          </div>
+          <div class="kpis">
+            <span class="kpi">Typical LLM call: $0.03–$0.15</span>
+            <span class="kpi">Micro-payments ready</span>
+          </div>
+        </div>
+
+        <!-- Per-call cap -->
+        <div class="field">
+          <label>Per-call cap</label>
+          <div class="row">
+            <input id="capRange" type="range" min="0.05" max="0.30" step="0.01" value="0.10" class="slider" style="flex:1">
+            <input id="capNum" type="number" step="0.01" value="0.10" class="input" style="width:110px">
+          </div>
+          <div class="small">This prevents runaway costs on a single request.</div>
+        </div>
+
+        <!-- Actions -->
+        <div class="actions">
+          <button id="eval" class="btn-lite primary">Evaluate</button>
+          <button id="resetDemo" class="btn-lite">Reset</button>
+        </div>
       </div>
     </div>
 
-    <div class="demo-card reveal">
-      <h3>What happens</h3>
-      <ol style="margin:10px 0 0;padding-left:18px;color:#cbd5e1">
-        <li>Request hits Autono gateway</li>
-        <li>Policies evaluate: allow-list → per-call cap → daily budget</li>
-        <li>Decision: <strong>ALLOW / DENY / REVIEW</strong></li>
-        <li>If ALLOW, rail executes and <strong>receipt</strong> is attached</li>
-        <li>Exports flow to your accounting</li>
-      </ol>
-      <div id="hero-lottie" class="reveal" style="margin:22px 0 0;width:100%;height:220px"></div>
-      <p class="muted" style="font-size:12px">Tip: Add a <code>hero.json</code> Lottie file later for a looping illustration.</p>
+    <!-- RIGHT: Result -->
+    <div class="panel reveal">
+      <h3 style="margin:0 0 6px">Decision & policy trace</h3>
+      <div class="status" id="statusBox">
+        <div id="badge" class="badge-lg badge-allow">ALLOW</div>
+        <div id="summary" style="margin-top:8px">Vendor: <code>openai</code> • Amount: <code>$0.12</code> • Cap: <code>$0.10</code></div>
+        <div class="trace" id="trace">
+          <div>• Allow-list: <span class="ok">PASS</span></div>
+          <div>• Per-call cap: <span class="no">FAIL (>$0.10)</span></div>
+          <div>• Daily budget: <span class="ok">PASS</span></div>
+        </div>
+      </div>
+      <p class="small" style="margin-top:10px">Every decision is logged with reasons and ready for export as a receipt.</p>
     </div>
   </div>
 </section>
@@ -522,30 +591,93 @@ function spawnCall(){
 let timer = setInterval(spawnCall, 900);
 if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { clearInterval(timer); }
 
-/* ===== Interactive demo logic ===== */
-const dVendor = document.getElementById('dVendor');
-const dAmt = document.getElementById('dAmt');
-const dOut = document.getElementById('dOut');
-const evalBtn = document.getElementById('eval');
-const resetDemo = document.getElementById('resetDemo');
+/* ===== Interactive demo logic (refined) ===== */
+const vendorButtons = Array.from(document.querySelectorAll('.chipbtn[data-vendor]'));
+let vendor = 'openai';
 
-function evaluate(){
-  const vendor = dVendor.value;
-  const amount = parseFloat(dAmt.value || '0');
-  const allowlist = ['openai','anthropic'];
-  const perCallCap = 0.10;
-  let reasons = [];
-  if (!allowlist.includes(vendor)) reasons.push('Not on allow-list');
-  if (amount > perCallCap) reasons.push(`Exceeds per-call cap $${perCallCap.toFixed(2)}`);
-  const decision = reasons.length ? 'DENY' : 'ALLOW';
-  const color = decision === 'ALLOW' ? '#10b981' : '#ef4444';
-  dOut.innerHTML =
-    `<div>Decision: <strong style="color:${color}">${decision}</strong></div>
-     <div style="margin-top:6px">Vendor: <code>${vendor}</code> • Amount: <code>$${amount.toFixed(2)}</code></div>
-     <div style="margin-top:6px">${reasons.length ? 'Reasons: ' + reasons.join('; ') : 'All checks passed.'}</div>`;
+vendorButtons.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    vendor = btn.getAttribute('data-vendor') || 'openai';
+    vendorButtons.forEach(b=>b.classList.toggle('active', b===btn));
+    updateStatus(false);
+  });
+});
+
+const amt = document.getElementById('amt');
+const amtNum = document.getElementById('amtNum');
+const capRange = document.getElementById('capRange');
+const capNum = document.getElementById('capNum');
+
+function sync(from){
+  if(from==='amt'){ amtNum.value = Number(amt.value).toFixed(2); }
+  if(from==='amtNum'){ amt.value = Number(amtNum.value || 0).toFixed(2); }
+  if(from==='cap'){ capNum.value = Number(capRange.value).toFixed(2); }
+  if(from==='capNum'){ capRange.value = Number(capNum.value || 0).toFixed(2); }
 }
-evalBtn.addEventListener('click', evaluate);
-resetDemo.addEventListener('click', ()=>{ dVendor.value='openai'; dAmt.value='0.12'; dOut.textContent='Click “Evaluate” to see the decision.'; });
+amt.addEventListener('input', ()=>{ sync('amt'); updateStatus(false); });
+amtNum.addEventListener('input', ()=>{ sync('amtNum'); updateStatus(false); });
+capRange.addEventListener('input', ()=>{ sync('cap'); updateStatus(false); });
+capNum.addEventListener('input', ()=>{ sync('capNum'); updateStatus(false); });
+
+const badge = document.getElementById('badge');
+const trace = document.getElementById('trace');
+const summary = document.getElementById('summary');
+const evalBtn = document.getElementById('eval');
+const resetBtn = document.getElementById('resetDemo');
+const statusBox = document.getElementById('statusBox');
+
+function evaluateDecision() {
+  const allowlist = ['openai','anthropic'];
+  const amount = parseFloat(amtNum.value || '0');
+  const cap = parseFloat(capNum.value || '0');
+  const checks = {
+    allow: allowlist.includes(vendor),
+    cap: amount <= cap,
+    budget: true // placeholder (always passes in demo)
+  };
+  const denyReasons = [];
+  if (!checks.allow) denyReasons.push('Not on allow-list');
+  if (!checks.cap) denyReasons.push(`Exceeds per-call cap $${cap.toFixed(2)}`);
+
+  const decision = denyReasons.length ? 'DENY' : 'ALLOW';
+  return { decision, checks, amount, cap, reasons: denyReasons };
+}
+
+function updateStatus(flash=true){
+  const { decision, checks, amount, cap, reasons } = evaluateDecision();
+
+  // Badge visual
+  badge.textContent = decision;
+  badge.className = 'badge-lg ' + (decision==='ALLOW' ? 'badge-allow' : 'badge-deny');
+
+  // Summary
+  summary.innerHTML = `Vendor: <code>${vendor}</code> • Amount: <code>$${amount.toFixed(2)}</code> • Cap: <code>$${cap.toFixed(2)}</code>`;
+
+  // Trace lines
+  trace.innerHTML = `
+    <div>• Allow-list: <span class="${checks.allow ? 'ok' : 'no'}">${checks.allow ? 'PASS' : 'FAIL'}</span></div>
+    <div>• Per-call cap: <span class="${checks.cap ? 'ok' : 'no'}">${checks.cap ? 'PASS' : 'FAIL'} ${checks.cap ? '' : `(>$${cap.toFixed(2)})`}</span></div>
+    <div>• Daily budget: <span class="${checks.budget ? 'ok' : 'no'}">${checks.budget ? 'PASS' : 'FAIL'}</span></div>
+  `;
+
+  // Subtle flash to acknowledge update
+  if (flash){
+    statusBox.style.boxShadow = '0 0 0 1px rgba(255,255,255,.10), 0 0 0 9999px rgba(0,0,0,0)';
+    statusBox.animate([{filter:'brightness(1.0)'},{filter:'brightness(1.15)'},{filter:'brightness(1.0)'}], {duration:400, easing:'ease-out'});
+  }
+}
+
+evalBtn.addEventListener('click', ()=> updateStatus(true));
+resetBtn.addEventListener('click', ()=>{
+  vendor = 'openai';
+  vendorButtons.forEach(b=>b.classList.toggle('active', b.getAttribute('data-vendor')==='openai'));
+  amt.value = '0.12'; amtNum.value = '0.12';
+  capRange.value = '0.10'; capNum.value = '0.10';
+  updateStatus(false);
+});
+
+// initial paint
+updateStatus(false);
 </script>
 
 </body>
