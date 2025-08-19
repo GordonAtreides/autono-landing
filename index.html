@@ -3,12 +3,11 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Autono — Policy-guarded payments for AI agents</title>
-<meta name="description" content="Give your agents budgets, allow-lists, per-call caps, and receipts—across x402, L402, and smart wallets." />
+<title>Autono — Policy & payments for AI agents</title>
+<meta name="description" content="Enable AI agents to transact safely, cheaply, and compliantly across crypto and traditional finance." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<!-- Optional Lottie (if you later add hero.json) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <style>
@@ -64,7 +63,7 @@ h1{font-size:clamp(36px,6vw,64px);line-height:1.1;margin:16px 0}
 .status.ok{background:#065f46;color:#d1fae5}
 .status.stop{background:#7f1d1d;color:#fee2e2}
 
-/* ===== Logos Marquee (full-bleed, continuous) ===== */
+/* ===== Logos Marquee ===== */
 .marquee{position:relative;padding:18px 0;background:linear-gradient(180deg, rgba(103,232,249,.06), rgba(129,140,248,.06));border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08);overflow:hidden}
 .marquee .container{max-width:none;padding:0}
 .marquee::before,.marquee::after{content:"";position:absolute;top:0;bottom:0;width:12vw;z-index:2;pointer-events:none}
@@ -86,14 +85,18 @@ h1{font-size:clamp(36px,6vw,64px);line-height:1.1;margin:16px 0}
 .pill .emoji{font-size:14px;opacity:.95}
 @media (prefers-reduced-motion: reduce){.marquee .track{animation:none}}
 
-/* ===== USP / Value ===== */
+/* ===== Generic section ===== */
 .section{padding:90px 0}
-.usp .grid{display:grid;gap:18px}
-@media(min-width:900px){.usp .grid{grid-template-columns:repeat(4,1fr)}}
-.card{border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,rgba(255,255,255,.05),transparent);border-radius:16px;padding:24px;box-shadow:0 0 0 1px rgba(255,255,255,.04), 0 30px 60px -15px rgba(0,0,0,.5);transition:transform .18s ease, box-shadow .18s ease, background .18s ease;will-change:transform}
+.card{border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,rgba(255,255,255,.05),transparent);border-radius:16px;padding:24px;box-shadow:0 0 0 1px rgba(255,255,255,.04), 0 30px 60px -15px rgba(0,0,0,.5);transition:transform .18s ease, box-shadow .18s ease, background .18s ease}
 .card:hover{transform:translateY(-4px);background:rgba(255,255,255,.06);box-shadow:0 30px 60px -12px rgba(0,0,0,.6)}
 .card h3{margin:10px 0 8px;font-size:18px}
 .icon{font-size:18px;opacity:.9}
+
+/* ===== 1-Pager band ===== */
+.band{background:linear-gradient(180deg, rgba(129,140,248,.08), rgba(103,232,249,.05));border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08)}
+.band .grid{display:grid;gap:18px}
+@media(min-width:980px){ .band .grid{grid-template-columns:1.2fr .8fr} }
+.kicker{display:inline-block;font-size:12px;color:#a7b0c2;border:1px solid rgba(255,255,255,.12);padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.04)}
 
 /* ===== Coverage (Control • Settle • Assure) ===== */
 .coverage{position:relative;background: radial-gradient(60% 60% at 50% 0%, rgba(103,232,249,.06), transparent)}
@@ -105,7 +108,6 @@ h1{font-size:clamp(36px,6vw,64px);line-height:1.1;margin:16px 0}
 .pillar-card h3{margin:10px 0 6px;font-size:18px}
 .pillar-card .list{margin:10px 0 0;padding:0 0 0 18px;color:#cbd5e1;line-height:1.6}
 .icon-ring{width:42px;height:42px;display:grid;place-items:center;border-radius:12px;background:linear-gradient(180deg, rgba(103,232,249,.18), rgba(129,140,248,.12));border:1px solid rgba(103,232,249,.35);box-shadow:0 10px 24px -12px rgba(0,0,0,.55), inset 0 0 32px rgba(103,232,249,.12);font-size:18px}
-/* connector line with pulsing nodes */
 .flow-line{pointer-events:none;position:absolute;left:18px;right:18px;bottom:18px;height:42px}
 .flow-line::before{content:"";position:absolute;left:0;right:0;top:50%;height:2px;transform:translateY(-50%);background:linear-gradient(90deg, rgba(129,140,248,.35), rgba(103,232,249,.35));border-radius:999px;opacity:.7}
 .flow-line .node{position:absolute;top:50%;width:12px;height:12px;transform:translateY(-50%);border-radius:999px;background:radial-gradient(circle at 50% 50%, rgba(103,232,249,1) 0%, rgba(103,232,249,.15) 55%, transparent 70%);box-shadow:0 0 22px rgba(103,232,249,.55);animation:pulse 2.2s ease-in-out infinite}
@@ -114,12 +116,13 @@ h1{font-size:clamp(36px,6vw,64px);line-height:1.1;margin:16px 0}
 .flow-line .node.right{left:84%;animation-delay:1.1s}
 @keyframes pulse{0%,100%{transform:translateY(-50%) scale(.9);opacity:.85}50%{transform:translateY(-50%) scale(1.08);opacity:1}}
 
-/* ===== Use Cases ===== */
-.use .grid{display:grid;gap:18px}
-@media(min-width:900px){.use .grid{grid-template-columns:repeat(3,1fr)}}
-.use .card p{min-height:48px}
+/* ===== Two-up benefits ===== */
+.split{display:grid;gap:18px}
+@media(min-width:980px){ .split{ grid-template-columns:1fr 1fr } }
+.bullet{display:flex;gap:10px;align-items:flex-start}
+.bullet .dot{width:10px;height:10px;border-radius:999px;background:linear-gradient(135deg,var(--accent2),var(--accent1));margin-top:6px}
 
-/* ===== Interactive Demo (refined) ===== */
+/* ===== Interactive Demo (as-is) ===== */
 .demo-wrap{display:grid;gap:28px;align-items:start}
 @media(min-width:980px){.demo-wrap{grid-template-columns:1.05fr .95fr}}
 .panel{border:1px solid rgba(255,255,255,.10);background:linear-gradient(180deg,rgba(255,255,255,.05),transparent);border-radius:16px;padding:20px;box-shadow:0 0 0 1px rgba(255,255,255,.04), 0 30px 60px -15px rgba(0,0,0,.5)}
@@ -149,7 +152,7 @@ h1{font-size:clamp(36px,6vw,64px);line-height:1.1;margin:16px 0}
 .btn-lite.primary{background:#fff;color:#111;border-color:#fff}
 .btn-lite:hover{transform:translateY(-1px)}
 
-/* ===== Timeline (existing) ===== */
+/* ===== Timeline / Social / Footer (as-is) ===== */
 .timeline{padding:90px 0}
 .twrap{max-width:980px;margin:0 auto;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:18px 18px 28px;background:linear-gradient(180deg,rgba(255,255,255,.06),transparent)}
 .thead{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
@@ -163,20 +166,18 @@ h1{font-size:clamp(36px,6vw,64px);line-height:1.1;margin:16px 0}
 @keyframes move { from{ transform:translateX(0)} to{ transform:translateX(1100px)} }
 .call.go{animation:move 6s linear forwards}
 
-/* ===== Social proof ===== */
 .quote{border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);border-radius:16px;padding:18px}
 .quote small{color:#a3b0c2}
 
-/* ===== Footer ===== */
 footer{border-top:1px solid var(--border);padding:32px 0;color:#94a3b8;font-size:14px}
 .footer-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .link{color:#fff;text-decoration:none}
 
-/* ===== Reveal on scroll ===== */
+/* Reveal on scroll */
 .reveal{opacity:0; transform:translateY(16px); transition:opacity .5s ease, transform .5s ease}
 .reveal.in{opacity:1; transform:none}
 
-/* ===== Reduced motion ===== */
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce){
   .reveal{transition:none;opacity:1;transform:none}
   .call.go{animation:none}
@@ -194,10 +195,11 @@ footer{border-top:1px solid var(--border);padding:32px 0;color:#94a3b8;font-size
   <div class="container nav-inner">
     <div class="logo"><span class="dot"></span><span>Autono</span></div>
     <div class="links">
+      <a href="#mission">Mission</a>
       <a href="#usps">Value</a>
       <a href="#coverage">Coverage</a>
-      <a href="#usecases">Use cases</a>
-      <a href="#hiw">How it works</a>
+      <a href="#benefits">Benefits</a>
+      <a href="#model">Pricing</a>
       <a href="#waitlist">Join</a>
     </div>
     <a class="btn" href="#waitlist">Get early access</a>
@@ -216,12 +218,11 @@ footer{border-top:1px solid var(--border);padding:32px 0;color:#94a3b8;font-size
 <header class="hero">
   <div class="blob"></div>
   <div class="glow-wrap"><div class="grain"></div><div class="orb" id="orb"></div></div>
-
   <div class="container">
     <div class="badge reveal"><span class="green"></span> Design partners wanted</div>
-    <h1 class="reveal">Policy-guarded payments for <span style="background:linear-gradient(90deg,var(--accent2),var(--accent1));-webkit-background-clip:text;background-clip:text;color:transparent;">AI agents</span></h1>
+    <h1 class="reveal">Policy & payments for <span style="background:linear-gradient(90deg,var(--accent2),var(--accent1));-webkit-background-clip:text;background-clip:text;color:transparent;">AI agents</span></h1>
     <p class="muted reveal" style="font-size:18px;max-width:800px;margin:12px auto 0;">
-      Give your agents budgets, vendor allow-lists, per-call caps, and receipts—across x402, L402, and smart wallets.
+      Enable agents to pay for APIs, services, and infra — with guardrails, vendor allow-lists, spend caps, and audit-grade receipts across crypto and traditional rails.
     </p>
     <div class="reveal" style="margin-top:24px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
       <a class="btn" href="#waitlist">Join the waitlist</a>
@@ -256,11 +257,10 @@ footer{border-top:1px solid var(--border);padding:32px 0;color:#94a3b8;font-size
   </div>
 </header>
 
-<!-- LOGOS MARQUEE (full-bleed, continuous) -->
-<div class="marquee">
+<!-- LOGOS MARQUEE -->
+<div class="marquee" aria-label="Supported rails & partners">
   <div class="container">
     <div class="track" aria-hidden="true">
-      <!-- list A -->
       <span class="pill cyan"><span class="emoji">🪙</span> x402 (USDC over HTTP)</span>
       <span class="pill amber"><span class="emoji">⚡️</span> Lightning L402 / LSAT</span>
       <span class="pill violet"><span class="emoji">🧠</span> ERC-4337 Smart Accounts</span>
@@ -275,7 +275,7 @@ footer{border-top:1px solid var(--border);padding:32px 0;color:#94a3b8;font-size
       <span class="pill amber"><span class="emoji">⚡️</span> Lightspark</span>
       <span class="pill gray"><span class="emoji">🏗️</span> OpenNode</span>
       <span class="pill pink"><span class="emoji">🔗</span> Chainlink</span>
-      <!-- list B duplicate -->
+      <!-- duplicate for continuous loop -->
       <span class="pill cyan"><span class="emoji">🪙</span> x402 (USDC over HTTP)</span>
       <span class="pill amber"><span class="emoji">⚡️</span> Lightning L402 / LSAT</span>
       <span class="pill violet"><span class="emoji">🧠</span> ERC-4337 Smart Accounts</span>
@@ -294,69 +294,111 @@ footer{border-top:1px solid var(--border);padding:32px 0;color:#94a3b8;font-size
   </div>
 </div>
 
-<!-- USP / VALUE -->
-<section id="usps" class="section usp">
-  <div class="container">
-    <h2 class="reveal" style="font-size:32px;margin:0 0 14px">Why Autono</h2>
-    <p class="muted reveal" style="max-width:720px">The control plane that turns raw rails into finance-grade automation.</p>
-    <div class="grid" style="margin-top:22px">
-      <div class="card reveal"><div class="icon">🛡️</div><h3>Guardrails by default</h3><p class="muted">Allow-lists, per-call caps, daily budgets, velocity limits, and time-boxed keys.</p></div>
-      <div class="card reveal"><div class="icon">🔗</div><h3>Multi-rail orchestration</h3><p class="muted">x402 for APIs, L402 for micro, and smart-account spend—one ruleset.</p></div>
-      <div class="card reveal"><div class="icon">🧾</div><h3>Receipts & reconciliation</h3><p class="muted">Attach verifiable proofs to each call; export to your ledger in one click.</p></div>
-      <div class="card reveal"><div class="icon">✅</div><h3>Compliance-calm</h3><p class="muted">Audit trails, Travel-Rule-ready data via partners, and promotions-friendly UX.</p></div>
+<!-- 1-PAGER BAND: Mission → Problem → Solution -->
+<section id="mission" class="section band">
+  <div class="container grid">
+    <div>
+      <span class="kicker reveal">Mission</span>
+      <h2 class="reveal" style="font-size:32px;margin:8px 0 10px">Enable agents to transact safely, cheaply, and compliantly.</h2>
+      <p class="muted reveal" style="max-width:720px">Autono is the policy & payments gateway for AI agents across crypto and traditional finance.</p>
+
+      <div class="reveal" style="margin-top:18px">
+        <h3 style="margin:0 0 6px;font-size:18px">The problem</h3>
+        <p class="muted" style="margin:0 0 10px">Agents pay for APIs/services in real time, but companies lack spend caps, vendor controls, and audit trails. Payments fragment across rails; gas/fees pile up; finance can’t trust or reimburse.</p>
+
+        <h3 style="margin:12px 0 6px;font-size:18px">The solution</h3>
+        <p class="muted" style="margin:0">Agents never touch raw wallets or bank keys. They request short-lived <em>policy tokens</em>. Every payment is evaluated against rules, routed to the cheapest settlement rail, batched when possible, and returned with a signed receipt.</p>
+      </div>
+    </div>
+    <div class="card reveal">
+      <h3 style="margin:0 0 8px">Cheaper rails, fewer failures</h3>
+      <ul style="margin:0;padding:0 0 0 18px;line-height:1.7;color:#cbd5e1">
+        <li>Route to lowest-cost rail (USDC, Lightning, bank)</li>
+        <li>Batch micro-tx to cut per-tx fees</li>
+        <li>Prevent duplicate/invalid spend before it settles</li>
+        <li>Signed receipts unlock reimbursement & chargeback</li>
+      </ul>
     </div>
   </div>
 </section>
 
-<!-- COVERAGE: Control • Settle • Assure (new) -->
+<!-- USP / VALUE -->
+<section id="usps" class="section">
+  <div class="container">
+    <h2 class="reveal" style="font-size:32px;margin:0 0 14px">Why Autono</h2>
+    <p class="muted reveal" style="max-width:720px">The control plane that turns raw rails into finance-grade automation.</p>
+    <div class="grid" style="display:grid;gap:18px;margin-top:22px;grid-template-columns:repeat(4,1fr)">
+      <div class="card reveal"><div class="icon">🛡️</div><h3>Guardrails by default</h3><p class="muted">Allow-lists, per-call caps, daily budgets, velocity limits, and time-boxed keys.</p></div>
+      <div class="card reveal"><div class="icon">🔗</div><h3>Multi-rail orchestration</h3><p class="muted">x402 for APIs, L402 for micro, and smart-account spend — one ruleset.</p></div>
+      <div class="card reveal"><div class="icon">🧾</div><h3>Receipts & reconciliation</h3><p class="muted">Verifiable proofs on every tx; export to your ledger in one click.</p></div>
+      <div class="card reveal"><div class="icon">✅</div><h3>Compliance-calm</h3><p class="muted">Audit trails, partner-enabled Travel Rule data, and enterprise workflows.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- COVERAGE: Control • Settle • Assure -->
 <section id="coverage" class="section coverage">
   <div class="container">
-    <h2 class="reveal" style="font-size:32px;margin:0 0 10px">Comprehensive AI Agent Payment Coverage</h2>
-    <p class="muted reveal" style="max-width:760px">
-      Autono unifies <strong>policy control</strong>, <strong>multi-rail settlement</strong>, and <strong>auditability</strong> into a single end-to-end payment governance layer for AI agents.
-    </p>
-
+    <h2 class="reveal" style="font-size:32px;margin:0 0 10px">Comprehensive AI agent payment coverage</h2>
+    <p class="muted reveal" style="max-width:760px">Autono unifies <strong>policy control</strong>, <strong>multi-rail settlement</strong>, and <strong>auditability</strong> into an end-to-end governance layer.</p>
     <div class="cover-panel reveal">
       <div class="pillars">
-        <div class="pillar-card">
-          <div class="icon-ring">⚙️</div>
-          <h3>Autono Control</h3>
-          <p class="muted">Prevent runaway spend with guardrails.</p>
-          <ul class="list"><li>Budgets &amp; daily limits</li><li>Per-call caps</li><li>Vendor allow-lists</li></ul>
-        </div>
-        <div class="pillar-card">
-          <div class="icon-ring">💸</div>
-          <h3>Autono Settle</h3>
-          <p class="muted">Execute across the best-fit rail.</p>
-          <ul class="list"><li>x402 (USDC over HTTP)</li><li>Lightning L402 / LSAT</li><li>ERC-4337 smart accounts</li></ul>
-        </div>
-        <div class="pillar-card">
-          <div class="icon-ring">📊</div>
-          <h3>Autono Assure</h3>
-          <p class="muted">Proof for finance and compliance.</p>
-          <ul class="list"><li>Receipts &amp; evidence</li><li>Reconciliation exports</li><li>Audit-ready trails</li></ul>
-        </div>
+        <div class="pillar-card"><div class="icon-ring">⚙️</div><h3>Autono Control</h3><p class="muted">Prevent runaway spend with guardrails.</p><ul class="list"><li>Budgets & daily limits</li><li>Per-call caps</li><li>Vendor allow-lists</li></ul></div>
+        <div class="pillar-card"><div class="icon-ring">💸</div><h3>Autono Settle</h3><p class="muted">Execute across the best-fit rail.</p><ul class="list"><li>x402 (USDC over HTTP)</li><li>Lightning L402 / LSAT</li><li>ERC-4337 smart accounts</li></ul></div>
+        <div class="pillar-card"><div class="icon-ring">📊</div><h3>Autono Assure</h3><p class="muted">Proof for finance & compliance.</p><ul class="list"><li>Signed receipts</li><li>Reconciliation exports</li><li>Audit-ready trails</li></ul></div>
       </div>
-      <div class="flow-line" aria-hidden="true">
-        <span class="node left"></span><span class="node mid"></span><span class="node right"></span>
+      <div class="flow-line" aria-hidden="true"><span class="node left"></span><span class="node mid"></span><span class="node right"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS: Companies vs Agents -->
+<section id="benefits" class="section">
+  <div class="container">
+    <h2 class="reveal" style="font-size:32px;margin:0 0 14px">Benefits</h2>
+    <div class="split" style="margin-top:16px">
+      <div class="card reveal">
+        <h3 style="margin:0 0 6px">For Companies</h3>
+        <div class="bullet"><span class="dot"></span><p class="muted">Cost control — stop runaway or duplicate spend.</p></div>
+        <div class="bullet"><span class="dot"></span><p class="muted">Cheaper payments — route to lowest-cost rails, batch tx, pooled discounts.</p></div>
+        <div class="bullet"><span class="dot"></span><p class="muted">Compliance — receipts + policy enforcement for audits.</p></div>
+        <div class="bullet"><span class="dot"></span><p class="muted">Centralized governance — one pane of glass for agent spend.</p></div>
       </div>
+      <div class="card reveal">
+        <h3 style="margin:0 0 6px">For Agents & Devs</h3>
+        <div class="bullet"><span class="dot"></span><p class="muted">Simple integration — call Autono API instead of managing wallets.</p></div>
+        <div class="bullet"><span class="dot"></span><p class="muted">Faster & safer — retries, failsafes, cheaper rails, fewer failures.</p></div>
+        <div class="bullet"><span class="dot"></span><p class="muted">Enterprise-ready — unlock customers who demand governance & receipts.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESS MODEL STRIP -->
+<section id="model" class="section" style="padding:64px 0 64px">
+  <div class="container">
+    <h2 class="reveal" style="font-size:32px;margin:0 0 10px">Business model</h2>
+    <div class="grid" style="display:grid;gap:16px;grid-template-columns:repeat(3,1fr);margin-top:14px">
+      <div class="card reveal"><h3>Gateway fee</h3><p class="muted">Small markup on each approved transaction.</p></div>
+      <div class="card reveal"><h3>Enterprise SaaS</h3><p class="muted">Policy management, dashboards, exports, approvals.</p></div>
+      <div class="card reveal"><h3>Float yield</h3><p class="muted">Optional yield on treasury balances (where permitted).</p></div>
     </div>
   </div>
 </section>
 
 <!-- USE CASES -->
-<section id="usecases" class="section use">
+<section id="usecases" class="section">
   <div class="container">
     <h2 class="reveal" style="font-size:32px;margin:0 0 14px">Built for real workloads</h2>
-    <div class="grid" style="margin-top:22px">
-      <div class="card reveal"><h3>AI agents</h3><p class="muted">Give each agent a scoped wallet, budget, and per-call cap. Stop loops and abuse.</p><div class="chip" style="display:inline-block;margin-top:8px">RAG / support bots</div></div>
-      <div class="card reveal"><h3>API vendors</h3><p class="muted">Offer pay-per-request with auto-reconciliation. Disputes drop when receipts are verifiable.</p><div class="chip" style="display:inline-block;margin-top:8px">Data & LLM APIs</div></div>
-      <div class="card reveal"><h3>Crypto-native teams</h3><p class="muted">Route micro-spend over sats; pay vendors in USDC; export clean books to accounting.</p><div class="chip" style="display:inline-block;margin-top:8px">DePIN • DAOs</div></div>
+    <div class="grid" style="display:grid;gap:18px;margin-top:22px;grid-template-columns:repeat(3,1fr)">
+      <div class="card reveal"><h3>AI agents</h3><p class="muted">Scoped wallets, budgets, per-call caps. Stop loops & abuse.</p><div class="chip" style="display:inline-block;margin-top:8px">RAG • support bots</div></div>
+      <div class="card reveal"><h3>API vendors</h3><p class="muted">Pay-per-request with auto-recon. Disputes drop with verifiable receipts.</p><div class="chip" style="display:inline-block;margin-top:8px">Data & LLM APIs</div></div>
+      <div class="card reveal"><h3>Crypto-native teams</h3><p class="muted">Route micro-spend over sats; settle vendors in USDC; export clean books.</p><div class="chip" style="display:inline-block;margin-top:8px">DePIN • DAOs</div></div>
     </div>
   </div>
 </section>
 
-<!-- INTERACTIVE DEMO -->
+<!-- INTERACTIVE DEMO (unchanged logic) -->
 <section id="demo" class="section">
   <div class="container demo-wrap">
     <div class="panel reveal">
@@ -378,7 +420,7 @@ footer{border-top:1px solid var(--border);padding:32px 0;color:#94a3b8;font-size
             <input id="amt" type="range" min="0.01" max="0.30" step="0.01" value="0.12" class="slider" style="flex:1">
             <input id="amtNum" type="number" step="0.01" value="0.12" class="input" style="width:110px">
           </div>
-          <div class="kpis"><span class="kpi">Typical LLM call: $0.03–$0.15</span><span class="kpi">Micro-payments ready</span></div>
+          <div class="kpis"><span class="kpi">Typical call: $0.03–$0.15</span><span class="kpi">Micro-payments ready</span></div>
         </div>
         <div class="field">
           <label>Per-call cap</label>
@@ -386,7 +428,7 @@ footer{border-top:1px solid var(--border);padding:32px 0;color:#94a3b8;font-size
             <input id="capRange" type="range" min="0.05" max="0.30" step="0.01" value="0.10" class="slider" style="flex:1">
             <input id="capNum" type="number" step="0.01" value="0.10" class="input" style="width:110px">
           </div>
-          <div class="small">This prevents runaway costs on a single request.</div>
+          <div class="small">Prevents runaway costs on a single request.</div>
         </div>
         <div class="actions"><button id="eval" class="btn-lite primary">Evaluate</button><button id="resetDemo" class="btn-lite">Reset</button></div>
       </div>
@@ -414,9 +456,9 @@ footer{border-top:1px solid var(--border);padding:32px 0;color:#94a3b8;font-size
   <div class="container">
     <h2 class="reveal" style="font-size:32px;margin:0 0 14px">How it works</h2>
     <div class="steps" style="margin-top:22px;display:grid;gap:16px">
-      <div class="step reveal"><span class="n">Step 1</span><h4>Connect agents & vendors</h4><p class="muted">Create agent wallets, link API vendors, and set identities.</p></div>
-      <div class="step reveal"><span class="n">Step 2</span><h4>Set policies</h4><p class="muted">Allow-lists, per-call caps ($/sats), daily budgets, and approvals.</p></div>
-      <div class="step reveal"><span class="n">Step 3</span><h4>Go live with receipts</h4><p class="muted">Gateway enforces decisions; every transaction has verifiable evidence.</p></div>
+      <div class="step reveal"><span class="n">Step 1</span><h4>Connect agents & vendors</h4><p class="muted">Issue agent identities; link wallets/banks & payment rails.</p></div>
+      <div class="step reveal"><span class="n">Step 2</span><h4>Set policies</h4><p class="muted">Allow-lists, per-call caps ($/sats), daily budgets, approvals.</p></div>
+      <div class="step reveal"><span class="n">Step 3</span><h4>Go live with receipts</h4><p class="muted">Gateway enforces decisions; every tx has verifiable evidence.</p></div>
     </div>
   </div>
 </section>
@@ -429,6 +471,18 @@ footer{border-top:1px solid var(--border);padding:32px 0;color:#94a3b8;font-size
       <div class="tick" style="left:10%"></div><div class="tick" style="left:30%"></div><div class="tick" style="left:50%"></div><div class="tick" style="left:70%"></div><div class="tick" style="left:90%"></div>
     </div>
     <div style="display:flex;justify-content:space-between;margin-top:10px;color:#cbd5e1;font-size:12px"><span>Now</span><span>+30s</span><span>+60s</span></div>
+  </div>
+</section>
+
+<!-- WHY WE WIN -->
+<section class="section">
+  <div class="container">
+    <h2 class="reveal" style="font-size:32px;margin:0 0 14px">Why Autono wins</h2>
+    <div class="grid" style="display:grid;gap:18px;grid-template-columns:repeat(3,1fr);margin-top:16px">
+      <div class="card reveal"><h3>Cheaper</h3><p class="muted">Rail routing, batching, gas optimization, and pooled partner discounts reduce effective cost per transaction.</p></div>
+      <div class="card reveal"><h3>Safer</h3><p class="muted">Policies stop rogue or duplicate spend before settlement. Short-lived tokens; no raw keys in agents.</p></div>
+      <div class="card reveal"><h3>Trusted</h3><p class="muted">Signed receipts, audit trails, clean exports. Finance can reimburse and charge back with confidence.</p></div>
+    </div>
   </div>
 </section>
 
